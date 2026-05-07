@@ -109,7 +109,7 @@ export const logoutRequest = async () => {
     url: buildUrl("logout"),
     headers: {
       "Content-Type": "application/json",
-      ...(token && { "Authorization": `Bearer ${token}` }),
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
   });
 
