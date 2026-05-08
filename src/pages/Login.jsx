@@ -11,7 +11,7 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useAppContext();
+  const { login, t } = useAppContext();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -37,11 +37,11 @@ const Login = () => {
         return;
       }
 
-      setError("Resposta invalida do servidor.");
+      setError(t("login.invalidServerResponse"));
     } catch (err) {
       setError(
         err.response?.data?.detail ||
-          "Login falhou. Verifique suas credenciais e tente novamente.",
+          t("login.failed"),
       );
       console.error("Login error:", err);
     } finally {
@@ -52,10 +52,10 @@ const Login = () => {
   return (
     <Card style={{ maxWidth: "400px", margin: "100px auto", padding: "20px" }}>
       <Card.Body>
-        <h2>Login</h2>
+        <h2>{t("login.title")}</h2>
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3" controlId="loginNickname">
-            <Form.Label>Nickname</Form.Label>
+            <Form.Label>{t("login.nickname")}</Form.Label>
             <Form.Control
               type="text"
               value={nickname}
@@ -65,7 +65,7 @@ const Login = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="loginPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t("login.password")}</Form.Label>
             <Form.Control
               type={passwordView ? "text" : "password"}
               value={password}
@@ -78,14 +78,14 @@ const Login = () => {
               className="mt-2"
               onClick={() => setPasswordView(!passwordView)}
             >
-              {passwordView ? "Hide" : "Show"} Password
+              {passwordView ? t("login.hidePassword") : t("login.showPassword")}
             </Button>
           </Form.Group>
 
           {error ? <p style={{ color: "red" }}>{error}</p> : null}
 
           <Button type="submit" className="w-100" disabled={isSubmitting}>
-            {isSubmitting ? "Entrando..." : "Entrar"}
+            {isSubmitting ? t("login.signingIn") : t("login.signIn")}
           </Button>
           <Button
             type="button"
@@ -93,7 +93,7 @@ const Login = () => {
             className="w-100 mt-2"
             onClick={() => navigate("/register")}
           >
-            Criar conta
+            {t("login.createAccount")}
           </Button>
         </Form>
       </Card.Body>

@@ -1,3 +1,7 @@
+## v1.2.0
+
+- Added Spanish, Portuguese and English text lenguage to the application
+
 ## v1.1.1
 
 - Adjustments on the Landing Page

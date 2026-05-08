@@ -3,14 +3,8 @@ import { post } from "../helpers/FecthApi";
 import { useAppContext } from "../helpers/ContextApi";
 import { Alert, Button, Card, Col, Row, Spinner } from "react-bootstrap";
 
-const anatomyTopics = [
-  { title: "Locomotor", apiName: "Locomotor" },
-  { title: "Esplacno", apiName: "Splanchnology" },
-  { title: "Neuro", apiName: "Neuroanatomy" },
-];
-
 const AnatomyQuestionGenerator = () => {
-  const [selectedTopic, setSelectedTopic] = useState(null);
+  const [selectedTopicApiName, setSelectedTopicApiName] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
@@ -21,7 +15,15 @@ const AnatomyQuestionGenerator = () => {
     resetQuestionData,
     incrementQuestionGenerationUsage,
     setQuestionGenerationUsage,
+    t,
   } = useAppContext();
+  const anatomyTopics = [
+    { title: t("anatomy.topic.locomotor"), apiName: "Locomotor" },
+    { title: t("anatomy.topic.splanchnology"), apiName: "Splanchnology" },
+    { title: t("anatomy.topic.neuroanatomy"), apiName: "Neuroanatomy" },
+  ];
+  const selectedTopic =
+    anatomyTopics.find((topic) => topic.apiName === selectedTopicApiName) || null;
 
   const generateQuestion = async (topic) => {
     try {
@@ -39,7 +41,7 @@ const AnatomyQuestionGenerator = () => {
     } catch (error) {
       setErrorMessage(
         error.response?.data?.detail ||
-          "Nao foi possivel gerar uma nova pergunta no momento.",
+          t("anatomy.generateFailed"),
       );
       console.error("Error:", error);
     } finally {
@@ -48,12 +50,12 @@ const AnatomyQuestionGenerator = () => {
   };
 
   const handleSelectTopic = async (topic) => {
-    setSelectedTopic(topic);
+    setSelectedTopicApiName(topic.apiName);
     await generateQuestion(topic);
   };
 
   const handleChangeTopic = () => {
-    setSelectedTopic(null);
+    setSelectedTopicApiName(null);
     setErrorMessage("");
     resetQuestionState();
     resetQuestionData();
@@ -77,7 +79,7 @@ const AnatomyQuestionGenerator = () => {
         ) : null}
         {!selectedTopic ? (
           <>
-            <h5>Choose your anatomy topic</h5>
+            <h5>{t("anatomy.chooseTopic")}</h5>
             <Row className="g-3 justify-content-center">
               {anatomyTopics.map((topic) => (
                 <Col
@@ -103,14 +105,14 @@ const AnatomyQuestionGenerator = () => {
           <>
             <div className="d-flex flex-column align-items-center gap-3">
               <h5 className="mb-0">
-                Selected topic: <strong>{selectedTopic.title}</strong>
+                {t("anatomy.selectedTopic")} <strong>{selectedTopic.title}</strong>
               </h5>
               <div className="d-flex flex-wrap justify-content-center gap-3">
                 <Button variant="outline-light" onClick={handleChangeTopic}>
-                  Trocar materia
+                  {t("anatomy.changeTopic")}
                 </Button>
                 <Button onClick={handleNextQuestion} disabled={isLoading}>
-                  Proxima pergunta
+                  {t("anatomy.nextQuestion")}
                 </Button>
               </div>
             </div>

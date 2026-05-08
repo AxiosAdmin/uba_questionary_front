@@ -1,5 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { get } from "./FecthApi";
+import {
+  DEFAULT_LANGUAGE,
+  LANGUAGE_LOCALES,
+  SUPPORTED_LANGUAGES,
+  translations,
+} from "./translations";
 
 const AppContext = createContext();
 
@@ -32,6 +38,18 @@ const getStoredQuestionGenerationUsage = () => {
   } catch {
     localStorage.removeItem("question_generation_usage");
     return null;
+  }
+};
+
+const getStoredLanguage = () => {
+  try {
+    const storedLanguage = localStorage.getItem("language");
+    return SUPPORTED_LANGUAGES.includes(storedLanguage)
+      ? storedLanguage
+      : DEFAULT_LANGUAGE;
+  } catch {
+    localStorage.removeItem("language");
+    return DEFAULT_LANGUAGE;
   }
 };
 
@@ -69,9 +87,57 @@ export const AppProvider = ({ children }) => {
   const [questionGenerationUsage, setQuestionGenerationUsageState] = useState(
     getStoredQuestionGenerationUsage,
   );
+  const [language, setLanguageState] = useState(getStoredLanguage);
   const [hasSubscriptionAccess, setHasSubscriptionAccess] = useState(() =>
     userHasSubscriptionAccess(getStoredAuthUser()),
   );
+
+  const setLanguage = (nextLanguage) => {
+    const resolvedLanguage = SUPPORTED_LANGUAGES.includes(nextLanguage)
+      ? nextLanguage
+      : DEFAULT_LANGUAGE;
+    localStorage.setItem("language", resolvedLanguage);
+    setLanguageState(resolvedLanguage);
+  };
+
+  const t = useCallback((key, variables = {}) => {
+    const template =
+      translations[language]?.[key] ?? translations.en[key] ?? key;
+
+    return Object.entries(variables).reduce(
+      (message, [variableKey, variableValue]) =>
+        message.replaceAll(`{${variableKey}}`, String(variableValue)),
+      template,
+    );
+  }, [language]);
+
+  const getLocale = useCallback(
+    () => LANGUAGE_LOCALES[language] || LANGUAGE_LOCALES.en,
+    [language],
+  );
+
+  const formatDate = (value, options) => {
+    if (!value) {
+      return null;
+    }
+
+    return new Date(value).toLocaleDateString(
+      getLocale(),
+      options || {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      },
+    );
+  };
+
+  const formatDateTime = (value, options) => {
+    if (!value) {
+      return "-";
+    }
+
+    return new Date(value).toLocaleString(getLocale(), options);
+  };
 
   const setSelectedInstitution = (institution) => {
     if (institution) {
@@ -250,6 +316,12 @@ export const AppProvider = ({ children }) => {
     refreshSubscriptionAccess,
     login,
     logout,
+    language,
+    setLanguage,
+    supportedLanguages: SUPPORTED_LANGUAGES,
+    t,
+    formatDate,
+    formatDateTime,
   };
 
   return (

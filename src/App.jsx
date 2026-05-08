@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import SubjectSelection from "./pages/SubjectSelection";
 import Header from "./Elements/Header";
 import Footer from "./Elements/Footer";
+import LanguageSelector from "./Elements/LanguageSelector";
 import LandingPage from "./pages/LandingPage";
 import AnsweredQuestions from "./pages/AnsweredQuestions";
 
@@ -28,6 +29,9 @@ function AppContent() {
 
   return (
     <>
+      <div className="app-toolbar">
+        <LanguageSelector />
+      </div>
       <Header />
       <main className="App-main">
         <Routes>

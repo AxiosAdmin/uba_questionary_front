@@ -1,65 +1,61 @@
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
-const planHighlights = [
-  {
-    icon: "bi-stars",
-    title: "Choices gerados por IA",
-    description:
-      "Receba perguntas objetivas de anatomia com foco em estudo rapido e treino recorrente.",
-  },
-  {
-    icon: "bi-lightning-charge",
-    title: "Discursivas geradas e avaliadas por IA (Em Breve)",
-    description:
-      "Receba perguntas, envie as resposta e receba uma avaliação com pontos de melhoria e possíveis correções de conteúdo",
-  },
-  {
-    icon: "bi-bar-chart-line",
-    title: "Gere simulados (Em Breve)",
-    description:
-      "Responda questões em sequência para simular um comportamento de provas",
-  },
-];
-
-const planFeatures = ["Ate 150 geracoes de questoes por mês"];
-
-const availableSubjects = [
-  {
-    icon: "bi bi-check-circle-fill",
-    title: "Anatomia",
-  },
-  {
-    icon: "bi bi-hourglass-split",
-    title: "Histologia (Em breve)",
-  },
-  {
-    icon: "bi bi-hourglass-split",
-    title: "Embriologia (Em breve)",
-  },
-  {
-    icon: "bi bi-hourglass-split",
-    title: "Biologia molecular (Em breve)",
-  },
-  {
-    icon: "bi bi-hourglass-split",
-    title: "Genetica (Em breve)",
-  },
-];
+import { useAppContext } from "../helpers/ContextApi";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const { t } = useAppContext();
+
+  const planHighlights = [
+    {
+      icon: "bi-stars",
+      title: t("landing.highlight.multipleChoice.title"),
+      description: t("landing.highlight.multipleChoice.description"),
+    },
+    {
+      icon: "bi-lightning-charge",
+      title: t("landing.highlight.essays.title"),
+      description: t("landing.highlight.essays.description"),
+    },
+    {
+      icon: "bi-bar-chart-line",
+      title: t("landing.highlight.mockExams.title"),
+      description: t("landing.highlight.mockExams.description"),
+    },
+  ];
+
+  const planFeatures = [t("landing.feature.questionLimit")];
+
+  const availableSubjects = [
+    {
+      icon: "bi bi-check-circle-fill",
+      title: t("landing.subject.anatomy"),
+    },
+    {
+      icon: "bi bi-hourglass-split",
+      title: t("landing.subject.histology"),
+    },
+    {
+      icon: "bi bi-hourglass-split",
+      title: t("landing.subject.embryology"),
+    },
+    {
+      icon: "bi bi-hourglass-split",
+      title: t("landing.subject.molecularBiology"),
+    },
+    {
+      icon: "bi bi-hourglass-split",
+      title: t("landing.subject.genetics"),
+    },
+  ];
 
   return (
     <section className="landing-page">
       <Container className="landing-hero">
         <Row className="align-items-center g-4 g-xl-5">
           <Col lg={7} className="text-start">
-            {/* <Badge className="landing-badge mb-3">Plano Basic UBA</Badge> */}
-            <h1 className="landing-title">UBA Trainer</h1>
-            <p className="landing-subtitle">
-              Plataforma para treinar para as suas provas de Anatomia da UBA
-            </p>
+            <h1 className="landing-title">{t("landing.title")}</h1>
+            <p className="landing-subtitle">{t("landing.subtitle")}</p>
 
             <Row className="g-3 mt-4">
               {planHighlights.map((item) => (
@@ -85,7 +81,7 @@ const LandingPage = () => {
           <Col lg={5}>
             <Card className="landing-plan-card border-0">
               <Card.Body className="p-4 p-lg-5 text-start">
-                <h2 className="landing-plan-title">Plano Basic</h2>
+                <h2 className="landing-plan-title">{t("landing.planTitle")}</h2>
 
                 <div className="landing-feature-list">
                   {planFeatures.map((feature) => (
@@ -98,7 +94,7 @@ const LandingPage = () => {
 
                 <div className="landing-subjects-block">
                   <h3 className="landing-subjects-title">
-                    Materias presentes na aplicacao
+                    {t("landing.subjectsTitle")}
                   </h3>
                   <div className="landing-subject-list">
                     {availableSubjects.map((subject) => (
@@ -116,7 +112,7 @@ const LandingPage = () => {
                     className="landing-primary-button"
                     onClick={() => navigate("/register")}
                   >
-                    Criar conta e assinar
+                    {t("landing.createAccount")}
                   </Button>
                   <Button
                     size="lg"
@@ -124,7 +120,7 @@ const LandingPage = () => {
                     className="landing-secondary-button"
                     onClick={() => navigate("/login")}
                   >
-                    Ja tenho conta
+                    {t("landing.alreadyHaveAccount")}
                   </Button>
                 </div>
               </Card.Body>

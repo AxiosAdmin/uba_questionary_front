@@ -4,13 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../helpers/ContextApi";
 import { get, post } from "../helpers/FecthApi";
 
-const subjects = [
-  {
-    text: "Anatomy",
-    route: "anatomy",
-  },
-];
-
 const SubjectSelection = () => {
   const {
     authUser,
@@ -19,12 +12,20 @@ const SubjectSelection = () => {
     refreshSubscriptionAccess,
     selectedInstitution,
     setSelectedInstitution,
+    t,
   } = useAppContext();
   const navigate = useNavigate();
   const [isPreparingCheckout, setIsPreparingCheckout] = useState(false);
   const [isRefreshingAccess, setIsRefreshingAccess] = useState(false);
   const [error, setError] = useState("");
   const [infoMessage, setInfoMessage] = useState("");
+
+  const subjects = [
+    {
+      text: t("landing.subject.anatomy"),
+      route: "anatomy",
+    },
+  ];
 
   const handleClickSubject = (subjectRoute) => {
     navigate(`/${subjectRoute}`);
@@ -48,7 +49,7 @@ const SubjectSelection = () => {
   const handleGenerateCheckout = async () => {
     const userId = getCurrentUserId();
     if (!userId) {
-      setError("Nao foi possivel identificar o usuario autenticado.");
+      setError(t("subjectSelection.userNotIdentified"));
       return;
     }
 
@@ -63,11 +64,11 @@ const SubjectSelection = () => {
         return;
       }
 
-      setError("Nao foi possivel iniciar o checkout da assinatura.");
+      setError(t("subjectSelection.checkoutStartFailed"));
     } catch (requestError) {
       setError(
         requestError.response?.data?.detail ||
-          "Nao foi possivel iniciar o checkout da assinatura.",
+          t("subjectSelection.checkoutStartFailed"),
       );
     } finally {
       setIsPreparingCheckout(false);
@@ -82,14 +83,12 @@ const SubjectSelection = () => {
     try {
       const hasAccess = await refreshSubscriptionAccess();
       if (!hasAccess) {
-        setInfoMessage(
-          "O pagamento ainda esta em processamento ou a assinatura nao foi liberada.",
-        );
+        setInfoMessage(t("subjectSelection.paymentPending"));
       }
     } catch (requestError) {
       setError(
         requestError.response?.data?.detail ||
-          "Nao foi possivel verificar o status da assinatura.",
+          t("subjectSelection.subscriptionStatusFailed"),
       );
     } finally {
       setIsRefreshingAccess(false);
@@ -110,17 +109,15 @@ const SubjectSelection = () => {
               <div className="d-flex justify-content-between align-items-start flex-column flex-md-row gap-3 mb-4">
                 <div>
                   <p className="text-uppercase small mb-2 text-warning">
-                    Assinatura pendente
+                    {t("subjectSelection.pendingBadge")}
                   </p>
-                  <h2 className="mb-2">Ative seu acesso para usar a plataforma</h2>
+                  <h2 className="mb-2">{t("subjectSelection.pendingTitle")}</h2>
                   <p className="mb-0 text-secondary">
-                    Seu login ja esta liberado. Para usar as rotas protegidas da
-                    aplicacao, finalize a assinatura no Stripe e depois atualize o
-                    status do acesso.
+                    {t("subjectSelection.pendingDescription")}
                   </p>
                 </div>
                 <div className="bg-warning-subtle rounded-pill px-3 py-2 text-dark fw-semibold">
-                  Plano Basic UBA
+                  {t("subjectSelection.planLabel")}
                 </div>
               </div>
 
@@ -128,10 +125,11 @@ const SubjectSelection = () => {
                 <Col md={6}>
                   <Card className="h-100 border-light-subtle">
                     <Card.Body>
-                      <Card.Title className="h5">1. Concluir pagamento</Card.Title>
+                      <Card.Title className="h5">
+                        {t("subjectSelection.step1Title")}
+                      </Card.Title>
                       <Card.Text className="text-secondary">
-                        Gere a sessao do checkout e finalize a assinatura com o
-                        Stripe.
+                        {t("subjectSelection.step1Description")}
                       </Card.Text>
                       <Button
                         className="w-100"
@@ -141,10 +139,10 @@ const SubjectSelection = () => {
                         {isPreparingCheckout ? (
                           <>
                             <Spinner size="sm" className="me-2" />
-                            Abrindo checkout...
+                            {t("subjectSelection.openingCheckout")}
                           </>
                         ) : (
-                          "Assinar agora"
+                          t("subjectSelection.subscribeNow")
                         )}
                       </Button>
                     </Card.Body>
@@ -153,10 +151,11 @@ const SubjectSelection = () => {
                 <Col md={6}>
                   <Card className="h-100 border-light-subtle">
                     <Card.Body>
-                      <Card.Title className="h5">2. Liberar acesso</Card.Title>
+                      <Card.Title className="h5">
+                        {t("subjectSelection.step2Title")}
+                      </Card.Title>
                       <Card.Text className="text-secondary">
-                        Depois do pagamento, verifique se a API ja recebeu os eventos
-                        do Stripe.
+                        {t("subjectSelection.step2Description")}
                       </Card.Text>
                       <Button
                         variant="outline-light"
@@ -167,10 +166,10 @@ const SubjectSelection = () => {
                         {isRefreshingAccess ? (
                           <>
                             <Spinner size="sm" className="me-2" />
-                            Verificando...
+                            {t("subjectSelection.checking")}
                           </>
                         ) : (
-                          "Ja paguei, verificar acesso"
+                          t("subjectSelection.alreadyPaid")
                         )}
                       </Button>
                     </Card.Body>
@@ -191,8 +190,12 @@ const SubjectSelection = () => {
               ) : null}
 
               <p className="small text-secondary mt-4 mb-0">
-                Usuario conectado:{" "}
-                <strong>{authUser?.nickname || authUser?.name || "Conta ativa"}</strong>
+                {t("subjectSelection.connectedUser")}{" "}
+                <strong>
+                  {authUser?.nickname ||
+                    authUser?.name ||
+                    t("subjectSelection.activeAccount")}
+                </strong>
               </p>
             </Card.Body>
           </Card>
@@ -204,7 +207,7 @@ const SubjectSelection = () => {
   return (
     <Row className="w-100 m-0 p-0">
       <Col className="px-5 pt-4">
-        <h5>Choose your subject</h5>
+        <h5>{t("subjectSelection.chooseSubject")}</h5>
         <Row className="g-3 justify-content-center">
           {subjects.map((subject, index) => (
             <Col
@@ -227,7 +230,7 @@ const SubjectSelection = () => {
         </Row>
         <div className="d-flex justify-content-center mt-4">
           <Button variant="outline-light" onClick={() => navigate("/answered-questions")}>
-            Ver minhas respostas
+            {t("subjectSelection.viewMyAnswers")}
           </Button>
         </div>
       </Col>

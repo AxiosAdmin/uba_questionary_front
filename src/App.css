@@ -16,6 +16,50 @@
   flex-direction: column;
 }
 
+.app-toolbar {
+  margin: 0 auto;
+  padding: 24px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.language-selector-shell {
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(8, 17, 28, 0.72);
+  border: 1px solid rgba(166, 185, 212, 0.16);
+  backdrop-filter: blur(14px);
+}
+
+.language-selector-label {
+  color: #f5f7fb;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.language-selector-input {
+  min-width: 120px;
+  border-radius: 999px;
+  border-color: rgba(166, 185, 212, 0.22);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #f5f7fb;
+}
+
+.language-selector-input:focus {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #f5f7fb;
+  border-color: rgba(245, 170, 76, 0.7);
+  box-shadow: 0 0 0 0.2rem rgba(245, 170, 76, 0.18);
+}
+
+.language-selector-input option {
+  color: #08111c;
+}
+
 .App-main > .row {
   flex: 1;
 }
@@ -311,6 +355,16 @@
 }
 
 @media (max-width: 576px) {
+  .app-toolbar {
+    justify-content: stretch;
+    padding-top: 16px;
+  }
+
+  .language-selector-shell {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .landing-hero {
     width: min(100% - 24px, 1180px);
   }

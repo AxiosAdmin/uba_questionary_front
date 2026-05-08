@@ -12,6 +12,7 @@ const Question = () => {
     setShowResult,
     isLoading,
     getCurrentUserId,
+    t,
   } = useAppContext();
   const [isSavingAnswer, setIsSavingAnswer] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -77,7 +78,7 @@ const Question = () => {
     const userId = getCurrentUserId();
 
     if (!userId) {
-      setErrorMessage("Nao foi possivel identificar o usuario autenticado.");
+      setErrorMessage(t("question.userNotIdentified"));
       return;
     }
 
@@ -94,7 +95,7 @@ const Question = () => {
     } catch (error) {
       setErrorMessage(
         error.response?.data?.detail ||
-          "Nao foi possivel salvar sua resposta. Tente novamente.",
+          t("question.saveFailed"),
       );
       console.error("Error saving question answer:", error);
     } finally {
@@ -147,7 +148,7 @@ const Question = () => {
         {isSavingAnswer ? (
           <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
             <Spinner animation="border" size="sm" variant="primary" />
-            <span>Salvando sua resposta...</span>
+            <span>{t("question.savingAnswer")}</span>
           </div>
         ) : null}
         {showResult ? (
@@ -159,13 +160,13 @@ const Question = () => {
                 </strong>
                 {answer.letter === correctAnswer ? (
                   <p style={{ color: "#4CAF50" }}>
-                    Correta: {answer.explanation}
+                    {t("question.correct")} {answer.explanation}
                   </p>
                 ) : null}
                 {answer.letter === selectedAnswer &&
                 answer.letter !== correctAnswer ? (
                   <p style={{ color: "#f44336" }}>
-                    Sua resposta: {answer.explanation}
+                    {t("question.yourAnswer")} {answer.explanation}
                   </p>
                 ) : null}
                 {answer.letter !== correctAnswer &&

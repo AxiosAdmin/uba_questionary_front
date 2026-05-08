@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
-import { Alert, Badge, Card, Col, Container, Row, Spinner, Table } from "react-bootstrap";
+import {
+  Alert,
+  Badge,
+  Card,
+  Col,
+  Container,
+  Row,
+  Spinner,
+  Table,
+} from "react-bootstrap";
 import { get } from "../helpers/FecthApi";
 import { useAppContext } from "../helpers/ContextApi";
 
@@ -25,16 +34,8 @@ const getAnswerLabel = (question, answerLetter) => {
   return `${answer.letter}) ${answer.text}`;
 };
 
-const formatAnsweredAt = (value) => {
-  if (!value) {
-    return "-";
-  }
-
-  return new Date(value).toLocaleString("pt-BR");
-};
-
 const AnsweredQuestions = () => {
-  const { getCurrentUserId } = useAppContext();
+  const { getCurrentUserId, formatDateTime, t } = useAppContext();
   const userId = getCurrentUserId();
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +44,7 @@ const AnsweredQuestions = () => {
   useEffect(() => {
     const loadAnsweredQuestions = async () => {
       if (!userId) {
-        setErrorMessage("Nao foi possivel identificar o usuario autenticado.");
+        setErrorMessage(t("answeredQuestions.userNotIdentified"));
         setIsLoading(false);
         return;
       }
@@ -58,7 +59,7 @@ const AnsweredQuestions = () => {
       } catch (error) {
         setErrorMessage(
           error.response?.data?.detail ||
-            "Nao foi possivel carregar suas respostas no momento.",
+            t("answeredQuestions.loadFailed"),
         );
         console.error("Error loading answered questions:", error);
       } finally {
@@ -67,7 +68,7 @@ const AnsweredQuestions = () => {
     };
 
     loadAnsweredQuestions();
-  }, [userId]);
+  }, [t, userId]);
 
   return (
     <section className="answered-questions-page">
@@ -79,18 +80,18 @@ const AnsweredQuestions = () => {
                 <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4 text-start">
                   <div>
                     <Badge className="answered-questions-badge mb-3">
-                      Historico do usuario
+                      {t("answeredQuestions.badge")}
                     </Badge>
                     <h1 className="answered-questions-title mb-2">
-                      Questoes respondidas
+                      {t("answeredQuestions.title")}
                     </h1>
                     <p className="answered-questions-subtitle mb-0">
-                      Veja a ultima resposta salva em cada questao que voce ja respondeu.
+                      {t("answeredQuestions.subtitle")}
                     </p>
                   </div>
                   <div className="answered-questions-count">
                     <span>{answeredQuestions.length}</span>
-                    <small>questoes registradas</small>
+                    <small>{t("answeredQuestions.countLabel")}</small>
                   </div>
                 </div>
 
@@ -110,9 +111,11 @@ const AnsweredQuestions = () => {
                 ) : answeredQuestions.length === 0 ? (
                   <Card className="answered-questions-empty border-0">
                     <Card.Body className="text-start">
-                      <h2 className="h4 mb-2">Nenhuma resposta encontrada</h2>
+                      <h2 className="h4 mb-2">
+                        {t("answeredQuestions.emptyTitle")}
+                      </h2>
                       <p className="mb-0 text-secondary">
-                        Assim que voce responder uma questao, ela vai aparecer aqui.
+                        {t("answeredQuestions.emptySubtitle")}
                       </p>
                     </Card.Body>
                   </Card>
@@ -121,11 +124,11 @@ const AnsweredQuestions = () => {
                     <Table responsive hover className="answered-questions-table align-middle mb-0">
                       <thead>
                         <tr>
-                          <th>Questao</th>
-                          <th>Materia</th>
-                          <th>Sua resposta</th>
-                          <th>Resposta correta</th>
-                          <th>Respondida em</th>
+                          <th>{t("answeredQuestions.table.question")}</th>
+                          <th>{t("answeredQuestions.table.subject")}</th>
+                          <th>{t("answeredQuestions.table.yourAnswer")}</th>
+                          <th>{t("answeredQuestions.table.correctAnswer")}</th>
+                          <th>{t("answeredQuestions.table.answeredAt")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -148,7 +151,7 @@ const AnsweredQuestions = () => {
                                 {getAnswerLabel(item, item.correct_answer)}
                               </span>
                             </td>
-                            <td>{formatAnsweredAt(item.answered_at)}</td>
+                            <td>{formatDateTime(item.answered_at)}</td>
                           </tr>
                         ))}
                       </tbody>
