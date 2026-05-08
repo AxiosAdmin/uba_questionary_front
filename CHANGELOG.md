@@ -1,3 +1,28 @@
+## v1.1.1
+
+- Adjustments on the Landing Page
+
+## v1.1.0
+
+- Added a page to review ansered questions
+
+## v1.0.1
+
+- Visual adjustments on landing page
+
+## v1.0.0
+
+- Fixed logout function
+- Removed questions list
+- Created the landing page
+- Implemented question generation counter
+
+## v0.6.0
+
+- Added payment logic
+- Improved question generation usage
+- Improved Login visual page
+
 ## v0.5.0
 
 - Added questions page

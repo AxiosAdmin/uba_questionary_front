@@ -12,10 +12,11 @@ import SubjectSelection from "./pages/SubjectSelection";
 import Header from "./Elements/Header";
 import Footer from "./Elements/Footer";
 import LandingPage from "./pages/LandingPage";
-import QuestionsList from "./pages/QuestionsList";
+import AnsweredQuestions from "./pages/AnsweredQuestions";
 
 function AppContent() {
-  const { isAuthenticated, hasSelectedInstitution } = useAppContext();
+  const { isAuthenticated, hasSelectedInstitution, hasSubscriptionAccess } =
+    useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +48,7 @@ function AppContent() {
           <Route
             path="/anatomy"
             element={
-              isAuthenticated && hasSelectedInstitution ? (
+              isAuthenticated && hasSubscriptionAccess && hasSelectedInstitution ? (
                 <>
                   <AnatomyQuestionGenerator />
                   <Question />
@@ -66,9 +67,9 @@ function AppContent() {
             }
           />
           <Route
-            path="/questions"
+            path="/answered-questions"
             element={
-              isAuthenticated ? <QuestionsList /> : <Navigate to="/login" />
+              isAuthenticated ? <AnsweredQuestions /> : <Navigate to="/login" />
             }
           />
         </Routes>

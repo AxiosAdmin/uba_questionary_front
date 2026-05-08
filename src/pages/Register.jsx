@@ -5,9 +5,11 @@ import { post } from "../helpers/FecthApi";
 
 const Register = () => {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordView, setPasswordView] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
@@ -16,14 +18,39 @@ const Register = () => {
     event.preventDefault();
     setError("");
     setSuccess("");
+    setIsSubmitting(true);
 
     try {
-      await post("users", { name, nickname, password });
-      setSuccess("Cadastro realizado com sucesso.");
-      navigate("/login");
+      const createUserResponse = await post("users", {
+        name,
+        email,
+        nickname,
+        password,
+      });
+      const userId = createUserResponse?.data?.id;
+
+      if (!userId) {
+        throw new Error("Nao foi possivel identificar o usuario criado.");
+      }
+
+      setSuccess("Cadastro realizado com sucesso. Redirecionando para o checkout...");
+
+      const checkoutResponse = await post("stripe/generate", { user_id: userId });
+
+      if (!checkoutResponse?.url_session) {
+        throw new Error("Nao foi possivel iniciar o checkout da assinatura.");
+      }
+
+      window.location.href = checkoutResponse.url_session;
     } catch (err) {
-      setError(err.response?.data?.detail || "Nao foi possivel realizar o cadastro.");
+      setError(
+        err.response?.data?.detail ||
+          err.message ||
+          "Nao foi possivel realizar o cadastro.",
+      );
       console.error("Register error:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -38,6 +65,16 @@ const Register = () => {
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="registerEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               required
             />
           </Form.Group>
@@ -73,8 +110,8 @@ const Register = () => {
           {error && <p style={{ color: "red" }}>{error}</p>}
           {success && <p style={{ color: "green" }}>{success}</p>}
 
-          <Button type="submit" className="w-100">
-            Cadastrar
+          <Button type="submit" className="w-100" disabled={isSubmitting}>
+            {isSubmitting ? "Redirecionando..." : "Cadastrar e assinar"}
           </Button>
           <Button
             type="button"

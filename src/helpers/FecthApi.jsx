@@ -39,6 +39,15 @@ const getToken = () => {
   }
 };
 
+const getInstitutionId = (authUser, selectedInstitution) => {
+  return (
+    selectedInstitution?.id ||
+    authUser?.institution?.id ||
+    authUser?.institution_id ||
+    null
+  );
+};
+
 export const fetchApi = async (endpoint, body = null, method = "GET") => {
   if (!BASE_URL) {
     throw new Error(
@@ -48,7 +57,7 @@ export const fetchApi = async (endpoint, body = null, method = "GET") => {
 
   const authUser = getStoredAuthUser();
   const selectedInstitution = getStoredSelectedInstitution();
-  const institutionId = selectedInstitution?.id || authUser?.institution?.id;
+  const institutionId = getInstitutionId(authUser, selectedInstitution);
   const token = getToken();
   const isLoginRequest = endpoint === "login";
 
@@ -85,26 +94,6 @@ export const fetchApi = async (endpoint, body = null, method = "GET") => {
     console.error(`Error on ${method} request to ${endpoint}:`, error);
     throw error;
   }
-};
-
-export const logoutRequest = async () => {
-  if (!BASE_URL) {
-    throw new Error(
-      "REACT_APP_BASE_API_URL is not defined in environment variables",
-    );
-  }
-
-  const token = getToken();
-  const response = await axios({
-    method: "POST",
-    url: buildUrl("logout"),
-    headers: {
-      "Content-Type": "application/json",
-      ...(token && { "Authorization": `Bearer ${token}` }),
-    },
-  });
-
-  return response.data;
 };
 
 // Convenience methods

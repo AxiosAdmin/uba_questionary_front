@@ -1,7 +1,10 @@
 .App {
   text-align: center;
-  background-color: #4c535f;
-  color: white;
+  background:
+    radial-gradient(circle at top, rgba(245, 170, 76, 0.24), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(94, 140, 255, 0.18), transparent 24%),
+    linear-gradient(180deg, #102033 0%, #0c1725 42%, #08111c 100%);
+  color: #f5f7fb;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,37 +20,320 @@
   flex: 1;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* .landing-badge {
+  background: rgba(245, 170, 76, 0.16) !important;
+  color: #ffd59b !important;
+  border: 1px solid rgba(245, 170, 76, 0.3);
+  border-radius: 999px;
+  padding: 0.6rem 0.95rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+} */
+
+.landing-page {
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.landing-hero {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 36px 0 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.landing-title {
+  font-size: clamp(2.5rem, 4vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  max-width: 11ch;
+  margin-bottom: 1rem;
+}
+
+.landing-subtitle {
+  color: rgb(188, 195, 204);
+  font-size: 1.08rem;
+  line-height: 1.7;
+  max-width: 62ch;
+}
+
+.landing-mini-text {
+  color: rgb(95, 99, 104);
+}
+
+.landing-actions {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.landing-primary-button,
+.landing-secondary-button {
+  border-radius: 999px;
+  padding: 0.95rem 1.4rem;
+  font-weight: 700;
+  border-width: 1px;
+}
+
+.landing-primary-button {
+  background: linear-gradient(135deg, #f5aa4c 0%, #f07a3c 100%);
+  border-color: transparent;
+  color: #09131f;
+  box-shadow: 0 16px 40px rgba(240, 122, 60, 0.22);
+}
+
+.landing-primary-button:hover,
+.landing-primary-button:focus,
+.landing-primary-button:active {
+  background: linear-gradient(135deg, #ffc06b 0%, #ff8d52 100%) !important;
+  color: #09131f !important;
+}
+
+.landing-secondary-button {
+  border-color: rgb(255, 255, 255) !important;
+  color: #f5f7fb !important;
+  background: #072869 !important;
+}
+
+.landing-secondary-button:hover,
+.landing-secondary-button:focus,
+.landing-secondary-button:active {
+  border-color: rgb(255, 255, 255, 0.5) !important;
+  color: #ffffff !important;
+  background: #072869ea !important;
+}
+
+.landing-mini-card,
+.landing-plan-card {
+  background: rgba(8, 17, 28, 0.68);
+  border: 1px solid rgba(166, 185, 212, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+  color: #f5f7fb;
+}
+
+.landing-mini-card {
+  border-radius: 24px;
+}
+
+.landing-plan-card {
+  border-radius: 32px;
+}
+
+.landing-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(245, 170, 76, 0.22), rgba(94, 140, 255, 0.2));
+  color: #ff9500;
+  font-size: 1.25rem;
 }
 
-.App-link {
-  color: #61dafb;
+.landing-mini-title {
+  font-size: 1.08rem;
+  margin-bottom: 0.65rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.landing-plan-title {
+  font-size: clamp(1.9rem, 2.4vw, 2.5rem);
+  margin: 1rem 0 0.9rem;
+  letter-spacing: -0.03em;
+}
+
+.landing-feature-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.landing-subjects-block {
+  margin-top: 1.6rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.landing-subjects-title {
+  margin-bottom: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.landing-subject-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.landing-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #212529;
+}
+
+.landing-feature-item i {
+  color: #1bb65e;
+  margin-top: 0.15rem;
+}
+
+.answered-questions-page {
+  width: 100%;
+}
+
+.answered-questions-shell {
+  width: min(1220px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 56px;
+}
+
+.answered-questions-card,
+.answered-questions-empty {
+  background: rgba(8, 17, 28, 0.72);
+  border: 1px solid rgba(166, 185, 212, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+  color: #f5f7fb;
+  border-radius: 28px;
+}
+
+.answered-questions-badge {
+  background: rgba(94, 140, 255, 0.18) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(94, 140, 255, 0.32);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.answered-questions-title {
+  font-size: clamp(2rem, 3vw, 3rem);
+  letter-spacing: -0.03em;
+}
+
+.answered-questions-subtitle {
+  color: rgb(129, 133, 139);
+  max-width: 58ch;
+  line-height: 1.7;
+}
+
+.answered-questions-count {
+  min-width: 160px;
+  padding: 1rem 1.2rem;
+  border-radius: 22px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(245, 170, 76, 0.24), rgba(94, 140, 255, 0.16));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.answered-questions-count span,
+.answered-questions-count small {
+  display: block;
+}
+
+.answered-questions-count span {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.answered-questions-count small {
+  margin-top: 0.35rem;
+  color: rgb(129, 133, 139);
+}
+
+.answered-questions-table-wrap {
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.answered-questions-table {
+  color: #f5f7fb;
+  margin-bottom: 0;
+}
+
+.answered-questions-table thead th {
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: #5088ff;
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.answered-questions-table td {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: transparent;
+}
+
+.answered-questions-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.answered-question-text {
+  min-width: 320px;
+  white-space: normal;
+}
+
+.answered-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.answered-pill-user {
+  background: rgb(94, 140, 255);
+  color: #ffffff;
+}
+
+.answered-pill-correct {
+  background: rgb(27, 182, 94);
+  color: #ffffff;
+}
+
+@media (max-width: 991px) {
+  .landing-hero {
+    padding-top: 12px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .landing-title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .landing-hero {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .landing-actions {
+    flex-direction: column;
+  }
+
+  .landing-primary-button,
+  .landing-secondary-button {
+    width: 100%;
+  }
+
+  .landing-plan-card,
+  .landing-mini-card {
+    border-radius: 24px;
+  }
+
+  .answered-questions-shell {
+    width: min(100% - 24px, 1220px);
+  }
+
+  .answered-question-text {
+    min-width: 220px;
   }
 }
