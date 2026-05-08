@@ -1,3 +1,7 @@
+## v1.0.1
+
+- Visual adjustments on landing page
+
 ## v1.0.0
 
 - Fixed logout function
