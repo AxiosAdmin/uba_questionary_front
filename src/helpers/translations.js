@@ -4,7 +4,7 @@ export const SUPPORTED_LANGUAGES = ["en", "es", "pt"];
 
 export const LANGUAGE_LOCALES = {
   en: "en-US",
-  es: "es-ES",
+  es: "es-AR",
   pt: "pt-BR",
 };
 
@@ -141,54 +141,54 @@ export const translations = {
   es: {
     "language.label": "Idioma",
     "language.option.en": "English",
-    "language.option.es": "Espanol",
-    "language.option.pt": "Portugues",
+    "language.option.es": "Español",
+    "language.option.pt": "Portugués",
 
     "header.logoAlt": "Logo del proyecto",
     "header.questionsThisMonth": "Preguntas este mes",
-    "header.usageResetDate": "Tu limite mensual se reiniciara el {date}.",
+    "header.usageResetDate": "Tu límite mensual se reiniciará el {date}.",
     "header.usageResetUnavailable":
-      "La fecha de renovacion del limite mensual todavia no esta disponible.",
+      "La fecha de renovación del límite mensual todavía no está disponible.",
     "header.home": "Inicio",
     "header.myAnswers": "Mis respuestas",
-    "header.logOut": "Cerrar sesion",
+    "header.logOut": "Cerrar sesión",
 
     "footer.developedBy": "Desarrollado por Pedro Vieira",
 
     "landing.highlight.multipleChoice.title":
-      "Preguntas de opcion multiple generadas por IA",
+      "Preguntas de opción múltiple generadas por IA",
     "landing.highlight.multipleChoice.description":
-      "Recibe preguntas de anatomia pensadas para repasos rapidos y entrenamiento recurrente.",
+      "Recibí preguntas de anatomía pensadas para repasos rápidos y entrenamiento recurrente.",
     "landing.highlight.essays.title":
-      "preguntas a desarrollar generadas y evaluadas por IA (Proximamente)",
+      "Preguntas a desarrollar generadas y evaluadas por IA (Próximamente)",
     "landing.highlight.essays.description":
-      "Recibe consignas, envia tu respuesta y obten retroalimentacion con puntos de mejora y posibles correcciones de contenido.",
-    "landing.highlight.mockExams.title": "Simulacros de examen (Proximamente)",
+      "Recibí consignas, enviá tu respuesta y obtené retroalimentación con puntos de mejora y posibles correcciones de contenido.",
+    "landing.highlight.mockExams.title": "Simulacros de examen (Próximamente)",
     "landing.highlight.mockExams.description":
       "Responde preguntas en secuencia para simular el comportamiento de un examen real.",
     "landing.feature.questionLimit":
       "Hasta 150 generaciones de preguntas por mes",
-    "landing.subject.anatomy": "Anatomia",
-    "landing.subject.histology": "Histologia (Proximamente)",
-    "landing.subject.embryology": "Embriologia (Proximamente)",
-    "landing.subject.molecularBiology": "Biologia molecular (Proximamente)",
-    "landing.subject.genetics": "Genetica (Proximamente)",
+    "landing.subject.anatomy": "Anatomía",
+    "landing.subject.histology": "Histología (Próximamente)",
+    "landing.subject.embryology": "Embriología (Próximamente)",
+    "landing.subject.molecularBiology": "Biología molecular (Próximamente)",
+    "landing.subject.genetics": "Genética (Próximamente)",
     "landing.title": "UBA Trainer",
     "landing.subtitle":
-      "Una plataforma para entrenar para tus examenes de anatomia de la UBA.",
-    "landing.planTitle": "Plan Basico",
-    "landing.subjectsTitle": "Materias disponibles en la aplicacion",
+      "Una plataforma para entrenarte para tus exámenes de anatomía de la UBA.",
+    "landing.planTitle": "Plan Básico",
+    "landing.subjectsTitle": "Materias disponibles en la aplicación",
     "landing.createAccount": "Crear cuenta y suscribirme",
     "landing.alreadyHaveAccount": "Ya tengo cuenta",
 
-    "login.invalidServerResponse": "Respuesta invalida del servidor.",
+    "login.invalidServerResponse": "Respuesta inválida del servidor.",
     "login.failed":
-      "El inicio de sesion fallo. Revisa tus credenciales e intentalo de nuevo.",
-    "login.title": "Iniciar sesion",
+      "El inicio de sesión falló. Revisá tus credenciales y volvé a intentarlo.",
+    "login.title": "Iniciar sesión",
     "login.nickname": "Nickname",
-    "login.password": "Contrasena",
-    "login.hidePassword": "Ocultar contrasena",
-    "login.showPassword": "Mostrar contrasena",
+    "login.password": "Contraseña",
+    "login.hidePassword": "Ocultar contraseña",
+    "login.showPassword": "Mostrar contraseña",
     "login.signingIn": "Ingresando...",
     "login.signIn": "Entrar",
     "login.createAccount": "Crear cuenta",
@@ -196,17 +196,17 @@ export const translations = {
     "register.userNotIdentified":
       "No fue posible identificar al usuario creado.",
     "register.successRedirect":
-      "Cuenta creada con exito. Redirigiendo al checkout...",
+      "Cuenta creada con éxito. Redirigiendo al checkout...",
     "register.checkoutStartFailed":
-      "No fue posible iniciar el checkout de la suscripcion.",
+      "No fue posible iniciar el checkout de la suscripción.",
     "register.failed": "No fue posible completar el registro.",
     "register.title": "Registro",
     "register.name": "Nombre",
     "register.email": "Email",
     "register.nickname": "Nickname",
-    "register.password": "Contrasena",
-    "register.hidePassword": "Ocultar contrasena",
-    "register.showPassword": "Mostrar contrasena",
+    "register.password": "Contraseña",
+    "register.hidePassword": "Ocultar contraseña",
+    "register.showPassword": "Mostrar contraseña",
     "register.redirecting": "Redirigiendo...",
     "register.submit": "Registrarme y suscribirme",
     "register.backToLogin": "Volver al login",
@@ -214,37 +214,37 @@ export const translations = {
     "subjectSelection.userNotIdentified":
       "No fue posible identificar al usuario autenticado.",
     "subjectSelection.checkoutStartFailed":
-      "No fue posible iniciar el checkout de la suscripcion.",
+      "No fue posible iniciar el checkout de la suscripción.",
     "subjectSelection.paymentPending":
-      "El pago todavia esta en procesamiento o la suscripcion aun no fue liberada.",
+      "El pago todavía está en procesamiento o la suscripción aún no fue habilitada.",
     "subjectSelection.subscriptionStatusFailed":
-      "No fue posible verificar el estado de la suscripcion.",
-    "subjectSelection.pendingBadge": "Suscripcion pendiente",
+      "No fue posible verificar el estado de la suscripción.",
+    "subjectSelection.pendingBadge": "Suscripción pendiente",
     "subjectSelection.pendingTitle": "Activa tu acceso para usar la plataforma",
     "subjectSelection.pendingDescription":
-      "Tu login ya esta activo. Para usar las rutas protegidas de la aplicacion, completa la suscripcion en Stripe y luego actualiza el estado de acceso.",
-    "subjectSelection.planLabel": "Plan Basico UBA",
+      "Tu login ya está activo. Para usar las rutas protegidas de la aplicación, completá la suscripción en Stripe y después actualizá el estado del acceso.",
+    "subjectSelection.planLabel": "Plan Básico UBA",
     "subjectSelection.step1Title": "1. Completar pago",
     "subjectSelection.step1Description":
-      "Genera la sesion de checkout y completa la suscripcion con Stripe.",
+      "Generá la sesión de checkout y completá la suscripción con Stripe.",
     "subjectSelection.openingCheckout": "Abriendo checkout...",
     "subjectSelection.subscribeNow": "Suscribirme ahora",
     "subjectSelection.step2Title": "2. Liberar acceso",
     "subjectSelection.step2Description":
-      "Despues del pago, verifica si la API ya recibio los eventos de Stripe.",
+      "Después del pago, verificá si la API ya recibió los eventos de Stripe.",
     "subjectSelection.checking": "Verificando...",
-    "subjectSelection.alreadyPaid": "Ya pague, verificar acceso",
+    "subjectSelection.alreadyPaid": "Ya pagué, verificar acceso",
     "subjectSelection.connectedUser": "Usuario conectado:",
     "subjectSelection.activeAccount": "Cuenta activa",
     "subjectSelection.chooseSubject": "Elige tu materia",
     "subjectSelection.viewMyAnswers": "Ver mis respuestas",
 
     "anatomy.topic.locomotor": "Sistema locomotor",
-    "anatomy.topic.splanchnology": "Esplacnologia",
-    "anatomy.topic.neuroanatomy": "Neuroanatomia",
+    "anatomy.topic.splanchnology": "Esplacnología",
+    "anatomy.topic.neuroanatomy": "Neuroanatomía",
     "anatomy.generateFailed":
       "No fue posible generar una nueva pregunta en este momento.",
-    "anatomy.chooseTopic": "Elige tu tema de anatomia",
+    "anatomy.chooseTopic": "Elegí tu tema de anatomía",
     "anatomy.selectedTopic": "Tema seleccionado:",
     "anatomy.changeTopic": "Cambiar tema",
     "anatomy.nextQuestion": "Siguiente pregunta",
@@ -252,7 +252,7 @@ export const translations = {
     "question.userNotIdentified":
       "No fue posible identificar al usuario autenticado.",
     "question.saveFailed":
-      "No fue posible guardar tu respuesta. Intentalo de nuevo.",
+      "No fue posible guardar tu respuesta. Volvé a intentarlo.",
     "question.savingAnswer": "Guardando tu respuesta...",
     "question.correct": "Correcta:",
     "question.yourAnswer": "Tu respuesta:",
@@ -264,11 +264,11 @@ export const translations = {
     "answeredQuestions.badge": "Historial del usuario",
     "answeredQuestions.title": "Preguntas respondidas",
     "answeredQuestions.subtitle":
-      "Mira la ultima respuesta guardada para cada pregunta que ya respondiste.",
+      "Mirá la última respuesta guardada para cada pregunta que ya respondiste.",
     "answeredQuestions.countLabel": "preguntas registradas",
     "answeredQuestions.emptyTitle": "No se encontraron respuestas",
     "answeredQuestions.emptySubtitle":
-      "En cuanto respondas una pregunta, aparecera aqui.",
+      "En cuanto respondas una pregunta, aparecerá acá.",
     "answeredQuestions.table.question": "Pregunta",
     "answeredQuestions.table.subject": "Materia",
     "answeredQuestions.table.yourAnswer": "Tu respuesta",
