@@ -1,3 +1,7 @@
+## v1.3.0
+
+- Visual improvements to the questions page
+
 ## v1.2.1
 
 - Adjustments on Docker file to fix deploy issues
