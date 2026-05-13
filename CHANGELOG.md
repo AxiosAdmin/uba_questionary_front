@@ -1,3 +1,7 @@
+## v1.4.1
+
+- Visual Adjustments on Header
+
 ## v1.4.0
 
 - Added forgot password and reset password page
