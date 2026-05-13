@@ -41,9 +41,11 @@ function AppContent() {
 
   return (
     <>
-      <div className="app-toolbar">
-        <LanguageSelector />
-      </div>
+      {!isAuthenticated ? (
+        <div className="app-toolbar">
+          <LanguageSelector />
+        </div>
+      ) : null}
       <Header />
       <main className="App-main">
         <Routes>

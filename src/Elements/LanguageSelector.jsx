@@ -1,18 +1,28 @@
 import { Form } from "react-bootstrap";
 import { useAppContext } from "../helpers/ContextApi";
 
-const LanguageSelector = () => {
+const LanguageSelector = ({ embedded = false }) => {
   const { language, setLanguage, t } = useAppContext();
 
   return (
-    <div className="language-selector-shell">
+    <div
+      className={
+        embedded
+          ? "language-selector-shell language-selector-shell-embedded"
+          : "language-selector-shell"
+      }
+    >
       <Form.Label htmlFor="language-select" className="language-selector-label m-0">
         {t("language.label")}
       </Form.Label>
       <Form.Select
         id="language-select"
         size="sm"
-        className="language-selector-input"
+        className={
+          embedded
+            ? "language-selector-input language-selector-input-embedded"
+            : "language-selector-input"
+        }
         value={language}
         onChange={(event) => setLanguage(event.target.value)}
       >
