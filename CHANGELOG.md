@@ -1,3 +1,9 @@
+## v1.4.0
+
+- Added forgot password and reset password page
+- Added a Feedback page
+- Added a validation to all password creation to improve more secure passwords
+
 ## v1.3.0
 
 - Visual improvements to the questions page
