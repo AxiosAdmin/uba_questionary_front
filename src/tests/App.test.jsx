@@ -49,17 +49,21 @@ jest.mock("react-router-dom", () => {
     Navigate: NavigateMock,
     Route: RouteMock,
     Routes: RoutesMock,
+    useLocation: () => ({ pathname: ReactLib.useContext(RouterContext).path }),
     useNavigate: () => ReactLib.useContext(RouterContext).navigate,
   };
 }, { virtual: true });
 
 jest.mock("../pages/LandingPage", () => () => <div>landing-page</div>);
 jest.mock("../pages/Login", () => () => <div>login-page</div>);
+jest.mock("../pages/ForgotPassword", () => () => <div>forgot-password-page</div>);
 jest.mock("../pages/Register", () => () => <div>register-page</div>);
+jest.mock("../pages/ResetPassword", () => () => <div>reset-password-page</div>);
 jest.mock("../pages/SubjectSelection", () => () => <div>subject-selection-page</div>);
 jest.mock("../pages/AnatomyQuestionGenerator", () => () => <div>anatomy-generator-page</div>);
 jest.mock("../pages/Question", () => () => <div>question-page</div>);
 jest.mock("../pages/AnsweredQuestions", () => () => <div>answered-questions-page</div>);
+jest.mock("../pages/Feedback", () => () => <div>feedback-page</div>);
 jest.mock("../Elements/Header", () => () => <div>header</div>);
 jest.mock("../Elements/Footer", () => () => <div>footer</div>);
 jest.mock("../Elements/LanguageSelector", () => () => <div>language-selector</div>);
@@ -132,5 +136,31 @@ describe("App routes", () => {
     renderAppAt("/register");
 
     expect(screen.getByText("subject-selection-page")).toBeInTheDocument();
+  });
+
+  test("renders forgot-password for public access", () => {
+    renderAppAt("/forgot-password");
+
+    expect(screen.getByText("forgot-password-page")).toBeInTheDocument();
+  });
+
+  test("renders reset-password for public access", () => {
+    renderAppAt("/reset-password");
+
+    expect(screen.getByText("reset-password-page")).toBeInTheDocument();
+  });
+
+  test("renders feedback only for authenticated users", () => {
+    localStorage.setItem("auth_user", JSON.stringify({ id: 1, institution_id: 4 }));
+
+    renderAppAt("/feedback");
+
+    expect(screen.getByText("feedback-page")).toBeInTheDocument();
+  });
+
+  test("redirects unauthenticated users from feedback to login", () => {
+    renderAppAt("/feedback");
+
+    expect(screen.getByText("login-page")).toBeInTheDocument();
   });
 });

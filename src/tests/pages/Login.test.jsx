@@ -105,6 +105,9 @@ describe("Login page", () => {
     expect(await screen.findByText("Bad credentials")).toBeInTheDocument();
     expect(consoleSpy).toHaveBeenCalled();
 
+    await userEvent.click(screen.getByRole("button", { name: "Forgot password?" }));
+    expect(mockNavigate).toHaveBeenCalledWith("/forgot-password");
+
     await userEvent.click(screen.getByRole("button", { name: "Create account" }));
     expect(mockNavigate).toHaveBeenCalledWith("/register");
   });

@@ -30,7 +30,7 @@ describe("AnatomyQuestionGenerator page", () => {
 
     render(<AnatomyQuestionGenerator />);
 
-    await userEvent.click(screen.getByText("Locomotor system"));
+    await userEvent.click(screen.getByText("Locomotor"));
 
     await waitFor(() => {
       expect(post).toHaveBeenCalledWith("ai/anatomy", { parameter: "Locomotor" });
@@ -93,7 +93,7 @@ describe("AnatomyQuestionGenerator page", () => {
     post.mockRejectedValue({});
     rerender(<AnatomyQuestionGenerator />);
 
-    await userEvent.click(screen.getByText("Locomotor system"));
+    await userEvent.click(screen.getByText("Locomotor"));
 
     expect(await screen.findByText("Unable to generate a new question right now.")).toBeInTheDocument();
     expect(consoleSpy).toHaveBeenCalled();
@@ -112,7 +112,7 @@ describe("AnatomyQuestionGenerator page", () => {
 
     render(<AnatomyQuestionGenerator />);
 
-    await userEvent.click(screen.getByText("Locomotor system"));
+    await userEvent.click(screen.getByText("Locomotor"));
     await screen.findByText(/Selected topic:/);
     await userEvent.click(screen.getByRole("button", { name: "Next question" }));
     await userEvent.click(screen.getByRole("button", { name: "Change topic" }));

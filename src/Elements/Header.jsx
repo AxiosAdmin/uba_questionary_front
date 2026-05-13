@@ -66,6 +66,9 @@ const Header = () => {
               <Button variant="outline-light" onClick={() => navigate("/answered-questions")}>
                 {t("header.myAnswers")}
               </Button>
+              <Button variant="outline-light" onClick={() => navigate("/feedback")}>
+                {t("header.feedback")}
+              </Button>
               <Button onClick={handleLogout}>{t("header.logOut")}</Button>
             </div>
           </Col>

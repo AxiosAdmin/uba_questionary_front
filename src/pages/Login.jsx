@@ -90,6 +90,14 @@ const Login = () => {
           <Button
             type="button"
             variant="link"
+            className="w-100 mt-2 auth-link-button"
+            onClick={() => navigate("/forgot-password")}
+          >
+            {t("login.forgotPassword")}
+          </Button>
+          <Button
+            type="button"
+            variant="link"
             className="w-100 mt-2"
             onClick={() => navigate("/register")}
           >

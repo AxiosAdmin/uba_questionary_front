@@ -79,6 +79,61 @@
   width: 100%;
 }
 
+.auth-card {
+  width: min(440px, calc(100% - 32px));
+  margin: 72px auto;
+  padding: 20px;
+  background: rgba(8, 17, 28, 0.72);
+  border: 1px solid rgba(166, 185, 212, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+  border-radius: 28px;
+}
+
+.auth-card .form-control {
+  border-radius: 16px;
+  border-color: rgba(166, 185, 212, 0.22);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.auth-card .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: #ff9500;
+  box-shadow: 0 0 0 0.2rem rgba(245, 170, 76, 0.18);
+}
+
+.auth-card .form-label {
+  font-weight: 600;
+}
+
+.auth-helper-text {
+  line-height: 1.7;
+}
+
+.auth-link-button {
+  color: #0000008e !important;
+  text-decoration: none;
+}
+
+.auth-link-button:hover,
+.auth-link-button:focus {
+  color: #000000 !important;
+}
+
+.auth-message {
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.auth-message-error {
+  color: #ff9500;
+}
+
+.auth-message-success {
+  color: #1bb65e;
+}
+
 .landing-hero {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
@@ -454,6 +509,11 @@
 
   .landing-hero {
     width: min(100% - 24px, 1180px);
+  }
+
+  .auth-card {
+    width: min(100% - 24px, 440px);
+    margin-top: 40px;
   }
 
   .landing-actions {

@@ -111,6 +111,43 @@ describe("FecthApi", () => {
     });
   });
 
+  test("omits auth headers on forgot-password and reset-password", async () => {
+    localStorage.setItem("auth_user", JSON.stringify({ id: 3, institution_id: 8 }));
+    localStorage.setItem("selected_institution", JSON.stringify({ id: 5, name: "UBA" }));
+    localStorage.setItem("token", "token-123");
+
+    const { axios, post } = loadFetchApiModule();
+    axios.mockResolvedValue({ data: { message: "ok" } });
+
+    await post("forgot-password", { email: "pedro@example.com" });
+    await post("reset-password", {
+      token: "reset-token",
+      new_password: "NovaSenha123!",
+    });
+
+    expect(axios).toHaveBeenNthCalledWith(1, {
+      method: "POST",
+      url: "https://api.example.com/forgot-password",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: "pedro@example.com",
+      },
+    });
+    expect(axios).toHaveBeenNthCalledWith(2, {
+      method: "POST",
+      url: "https://api.example.com/reset-password",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        token: "reset-token",
+        new_password: "NovaSenha123!",
+      },
+    });
+  });
+
   test("clears malformed auth storage before calling the API", async () => {
     localStorage.setItem("auth_user", "{invalid-json");
     localStorage.setItem("token", "token-123");
@@ -239,6 +276,26 @@ describe("FecthApi", () => {
     axios.mockRejectedValue(error);
 
     await expect(post("login", { nickname: "pedro", password: "secret" })).rejects.toBe(error);
+    expect(localStorage.getItem("auth_user")).not.toBeNull();
+    expect(localStorage.getItem("selected_institution")).not.toBeNull();
+    expect(localStorage.getItem("token")).toBe("token-123");
+    expect(dispatchSpy).not.toHaveBeenCalled();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  test("does not clear auth when a public password recovery request returns 401", async () => {
+    const error = { response: { status: 401 } };
+    const dispatchSpy = jest.spyOn(window, "dispatchEvent");
+    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+    localStorage.setItem("auth_user", JSON.stringify({ id: 3 }));
+    localStorage.setItem("selected_institution", JSON.stringify({ id: 5, name: "UBA" }));
+    localStorage.setItem("token", "token-123");
+
+    const { axios, post } = loadFetchApiModule();
+    axios.mockRejectedValue(error);
+
+    await expect(post("reset-password", { token: "x", new_password: "y" })).rejects.toBe(error);
     expect(localStorage.getItem("auth_user")).not.toBeNull();
     expect(localStorage.getItem("selected_institution")).not.toBeNull();
     expect(localStorage.getItem("token")).toBe("token-123");

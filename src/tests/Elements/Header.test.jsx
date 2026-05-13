@@ -54,12 +54,14 @@ describe("Header", () => {
 
     await userEvent.click(screen.getByRole("button", { name: "Home" }));
     await userEvent.click(screen.getByRole("button", { name: "My answers" }));
+    await userEvent.click(screen.getByRole("button", { name: "Feedback" }));
     await userEvent.click(screen.getByRole("button", { name: "Log out" }));
 
     expect(mockNavigate).toHaveBeenNthCalledWith(1, "/app");
     expect(mockNavigate).toHaveBeenNthCalledWith(2, "/answered-questions");
+    expect(mockNavigate).toHaveBeenNthCalledWith(3, "/feedback");
     expect(logout).toHaveBeenCalled();
-    expect(mockNavigate).toHaveBeenNthCalledWith(3, "/login");
+    expect(mockNavigate).toHaveBeenNthCalledWith(4, "/login");
     expect(formatDate).toHaveBeenCalledWith("2026-05-10T12:00:00Z", {
       day: "2-digit",
       month: "2-digit",

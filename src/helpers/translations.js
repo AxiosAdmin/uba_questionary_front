@@ -22,6 +22,7 @@ export const translations = {
       "The monthly reset date is not available yet.",
     "header.home": "Home",
     "header.myAnswers": "My answers",
+    "header.feedback": "Feedback",
     "header.logOut": "Log out",
 
     "footer.developedBy": "Developed by Pedro Vieira",
@@ -59,7 +60,36 @@ export const translations = {
     "login.showPassword": "Show password",
     "login.signingIn": "Signing in...",
     "login.signIn": "Sign in",
+    "login.forgotPassword": "Forgot password?",
     "login.createAccount": "Create account",
+    "password.requirements":
+      "Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.",
+
+    "forgotPassword.title": "Forgot your password?",
+    "forgotPassword.description":
+      "Enter the email linked to your account and we will send you a password reset link.",
+    "forgotPassword.email": "Email",
+    "forgotPassword.submit": "Send reset link",
+    "forgotPassword.submitting": "Sending...",
+    "forgotPassword.success":
+      "If the email exists, password reset instructions have been generated.",
+    "forgotPassword.failed":
+      "Unable to start password recovery right now.",
+    "forgotPassword.backToLogin": "Back to login",
+
+    "resetPassword.title": "Reset password",
+    "resetPassword.description":
+      "Choose a new password to finish recovering your account.",
+    "resetPassword.newPassword": "New password",
+    "resetPassword.confirmPassword": "Confirm new password",
+    "resetPassword.submit": "Update password",
+    "resetPassword.submitting": "Updating...",
+    "resetPassword.success": "Password updated successfully.",
+    "resetPassword.failed": "Unable to update your password right now.",
+    "resetPassword.invalidToken":
+      "The password reset link is invalid or has already been used.",
+    "resetPassword.passwordMismatch": "The passwords do not match.",
+    "resetPassword.backToLogin": "Back to login",
 
     "register.userNotIdentified": "Unable to identify the created user.",
     "register.successRedirect":
@@ -106,7 +136,7 @@ export const translations = {
     "subjectSelection.chooseSubject": "Choose your subject",
     "subjectSelection.viewMyAnswers": "View my answers",
 
-    "anatomy.topic.locomotor": "Locomotor system",
+    "anatomy.topic.locomotor": "Locomotor",
     "anatomy.topic.splanchnology": "Splanchnology",
     "anatomy.topic.neuroanatomy": "Neuroanatomy",
     "anatomy.generateFailed": "Unable to generate a new question right now.",
@@ -137,6 +167,20 @@ export const translations = {
     "answeredQuestions.table.yourAnswer": "Your answer",
     "answeredQuestions.table.correctAnswer": "Correct answer",
     "answeredQuestions.table.answeredAt": "Answered at",
+
+    "feedback.userNotIdentified":
+      "Unable to identify the authenticated user.",
+    "feedback.title": "Send feedback",
+    "feedback.description":
+      "Share suggestions, ideas, or issues you noticed while using the platform.",
+    "feedback.label": "Your feedback",
+    "feedback.placeholder":
+      "Tell us what would make the platform better for you.",
+    "feedback.submit": "Send feedback",
+    "feedback.submitting": "Sending...",
+    "feedback.success": "Thanks! Your feedback has been sent.",
+    "feedback.failed": "Unable to send your feedback right now.",
+    "feedback.backToHome": "Back to home",
   },
   es: {
     "language.label": "Idioma",
@@ -151,6 +195,7 @@ export const translations = {
       "La fecha de renovación del límite mensual todavía no está disponible.",
     "header.home": "Inicio",
     "header.myAnswers": "Mis respuestas",
+    "header.feedback": "Feedback",
     "header.logOut": "Cerrar sesión",
 
     "footer.developedBy": "Desarrollado por Pedro Vieira",
@@ -191,7 +236,37 @@ export const translations = {
     "login.showPassword": "Mostrar contraseña",
     "login.signingIn": "Ingresando...",
     "login.signIn": "Entrar",
+    "login.forgotPassword": "Olvide mi contrasena",
     "login.createAccount": "Crear cuenta",
+    "password.requirements":
+      "La contrasena debe tener al menos 8 caracteres e incluir una letra mayuscula, una minuscula, un numero y un caracter especial.",
+
+    "forgotPassword.title": "Olvidaste tu contrasena?",
+    "forgotPassword.description":
+      "Ingresa el email vinculado a tu cuenta y te enviaremos un enlace para restablecer tu contrasena.",
+    "forgotPassword.email": "Email",
+    "forgotPassword.submit": "Enviar enlace de recuperacion",
+    "forgotPassword.submitting": "Enviando...",
+    "forgotPassword.success":
+      "Si el email existe, ya se generaron las instrucciones para restablecer la contrasena.",
+    "forgotPassword.failed":
+      "No fue posible iniciar la recuperacion de contrasena en este momento.",
+    "forgotPassword.backToLogin": "Volver al login",
+
+    "resetPassword.title": "Restablecer contrasena",
+    "resetPassword.description":
+      "Elige una nueva contrasena para terminar de recuperar tu cuenta.",
+    "resetPassword.newPassword": "Nueva contrasena",
+    "resetPassword.confirmPassword": "Confirmar nueva contrasena",
+    "resetPassword.submit": "Actualizar contrasena",
+    "resetPassword.submitting": "Actualizando...",
+    "resetPassword.success": "Contrasena actualizada con exito.",
+    "resetPassword.failed":
+      "No fue posible actualizar tu contrasena en este momento.",
+    "resetPassword.invalidToken":
+      "El enlace para restablecer la contrasena es invalido o ya fue usado.",
+    "resetPassword.passwordMismatch": "Las contrasenas no coinciden.",
+    "resetPassword.backToLogin": "Volver al login",
 
     "register.userNotIdentified":
       "No fue posible identificar al usuario creado.",
@@ -239,7 +314,7 @@ export const translations = {
     "subjectSelection.chooseSubject": "Elige tu materia",
     "subjectSelection.viewMyAnswers": "Ver mis respuestas",
 
-    "anatomy.topic.locomotor": "Sistema locomotor",
+    "anatomy.topic.locomotor": "Locomotor",
     "anatomy.topic.splanchnology": "Esplacnología",
     "anatomy.topic.neuroanatomy": "Neuroanatomía",
     "anatomy.generateFailed":
@@ -274,6 +349,20 @@ export const translations = {
     "answeredQuestions.table.yourAnswer": "Tu respuesta",
     "answeredQuestions.table.correctAnswer": "Respuesta correcta",
     "answeredQuestions.table.answeredAt": "Respondida el",
+
+    "feedback.userNotIdentified":
+      "No fue posible identificar al usuario autenticado.",
+    "feedback.title": "Enviar feedback",
+    "feedback.description":
+      "Comparte sugerencias, ideas o problemas que notaste mientras usabas la plataforma.",
+    "feedback.label": "Tu feedback",
+    "feedback.placeholder":
+      "Cuentanos que mejoraria tu experiencia en la plataforma.",
+    "feedback.submit": "Enviar feedback",
+    "feedback.submitting": "Enviando...",
+    "feedback.success": "Gracias! Tu feedback fue enviado.",
+    "feedback.failed": "No fue posible enviar tu feedback en este momento.",
+    "feedback.backToHome": "Volver al inicio",
   },
   pt: {
     "language.label": "Idioma",
@@ -288,6 +377,7 @@ export const translations = {
       "A data de renovacao do limite mensal ainda nao esta disponivel.",
     "header.home": "Inicio",
     "header.myAnswers": "Minhas respostas",
+    "header.feedback": "Feedback",
     "header.logOut": "Sair",
 
     "footer.developedBy": "Desenvolvido por Pedro Vieira",
@@ -327,7 +417,37 @@ export const translations = {
     "login.showPassword": "Mostrar senha",
     "login.signingIn": "Entrando...",
     "login.signIn": "Entrar",
+    "login.forgotPassword": "Esqueci minha senha",
     "login.createAccount": "Criar conta",
+    "password.requirements":
+      "A senha deve ter pelo menos 8 caracteres e incluir uma letra maiuscula, uma minuscula, um numero e um caractere especial.",
+
+    "forgotPassword.title": "Esqueceu sua senha?",
+    "forgotPassword.description":
+      "Informe o email vinculado a sua conta e enviaremos um link para redefinir sua senha.",
+    "forgotPassword.email": "Email",
+    "forgotPassword.submit": "Enviar link de redefinicao",
+    "forgotPassword.submitting": "Enviando...",
+    "forgotPassword.success":
+      "Se o email existir, as instrucoes de redefinicao de senha foram geradas.",
+    "forgotPassword.failed":
+      "Nao foi possivel iniciar a recuperacao de senha no momento.",
+    "forgotPassword.backToLogin": "Voltar para o login",
+
+    "resetPassword.title": "Redefinir senha",
+    "resetPassword.description":
+      "Escolha uma nova senha para concluir a recuperacao da sua conta.",
+    "resetPassword.newPassword": "Nova senha",
+    "resetPassword.confirmPassword": "Confirmar nova senha",
+    "resetPassword.submit": "Atualizar senha",
+    "resetPassword.submitting": "Atualizando...",
+    "resetPassword.success": "Senha atualizada com sucesso.",
+    "resetPassword.failed":
+      "Nao foi possivel atualizar sua senha no momento.",
+    "resetPassword.invalidToken":
+      "O link de redefinicao de senha e invalido ou ja foi usado.",
+    "resetPassword.passwordMismatch": "As senhas nao coincidem.",
+    "resetPassword.backToLogin": "Voltar para o login",
 
     "register.userNotIdentified":
       "Nao foi possivel identificar o usuario criado.",
@@ -375,7 +495,7 @@ export const translations = {
     "subjectSelection.chooseSubject": "Escolha sua materia",
     "subjectSelection.viewMyAnswers": "Ver minhas respostas",
 
-    "anatomy.topic.locomotor": "Sistema locomotor",
+    "anatomy.topic.locomotor": "Locomotor",
     "anatomy.topic.splanchnology": "Esplacnologia",
     "anatomy.topic.neuroanatomy": "Neuroanatomia",
     "anatomy.generateFailed":
@@ -410,5 +530,19 @@ export const translations = {
     "answeredQuestions.table.yourAnswer": "Sua resposta",
     "answeredQuestions.table.correctAnswer": "Resposta correta",
     "answeredQuestions.table.answeredAt": "Respondida em",
+
+    "feedback.userNotIdentified":
+      "Nao foi possivel identificar o usuario autenticado.",
+    "feedback.title": "Enviar feedback",
+    "feedback.description":
+      "Compartilhe sugestoes, ideias ou problemas que voce percebeu ao usar a plataforma.",
+    "feedback.label": "Seu feedback",
+    "feedback.placeholder":
+      "Conte o que deixaria a plataforma melhor para voce.",
+    "feedback.submit": "Enviar feedback",
+    "feedback.submitting": "Enviando...",
+    "feedback.success": "Obrigado! Seu feedback foi enviado.",
+    "feedback.failed": "Nao foi possivel enviar seu feedback no momento.",
+    "feedback.backToHome": "Voltar para o inicio",
   },
 };

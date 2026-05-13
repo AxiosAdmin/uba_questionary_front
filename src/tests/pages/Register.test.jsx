@@ -46,7 +46,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("Password"), "secret");
+    await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and subscribe" }));
 
     await waitFor(() => {
@@ -54,7 +54,7 @@ describe("Register page", () => {
         name: "Pedro",
         email: "pedro@example.com",
         nickname: "pedro",
-        password: "secret",
+        password: "Secret123!",
       });
     });
     expect(post).toHaveBeenNthCalledWith(2, "stripe/generate", { user_id: 99 });
@@ -70,7 +70,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("Password"), "secret");
+    await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and subscribe" }));
 
     expect(await screen.findByText("Unable to identify the created user.")).toBeInTheDocument();
@@ -88,7 +88,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("Password"), "secret");
+    await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and subscribe" }));
 
     expect(await screen.findByText("Unable to start the subscription checkout.")).toBeInTheDocument();
@@ -111,7 +111,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(passwordInput, "secret");
+    await userEvent.type(passwordInput, "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and subscribe" }));
 
     expect(await screen.findByText("Email already exists")).toBeInTheDocument();
@@ -130,10 +130,27 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("Password"), "secret");
+    await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and subscribe" }));
 
     expect(await screen.findByText("Unable to complete registration.")).toBeInTheDocument();
     expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  test("blocks weak passwords before sending the request", async () => {
+    render(<Register />);
+
+    await userEvent.type(screen.getByLabelText("Name"), "Pedro");
+    await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
+    await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
+    await userEvent.type(screen.getByLabelText("Password"), "secret");
+    await userEvent.click(screen.getByRole("button", { name: "Register and subscribe" }));
+
+    expect(
+      await screen.findAllByText(
+        "Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.",
+      ),
+    ).not.toHaveLength(0);
+    expect(post).not.toHaveBeenCalled();
   });
 });

@@ -1,5 +1,11 @@
 import axios from "axios";
 
+const PUBLIC_ENDPOINTS = new Set([
+  "login",
+  "forgot-password",
+  "reset-password",
+]);
+
 const getBaseUrl = () => {
   const runtimeBaseUrl =
     typeof window !== "undefined"
@@ -66,7 +72,8 @@ export const fetchApi = async (endpoint, body = null, method = "GET") => {
   const selectedInstitution = getStoredSelectedInstitution();
   const institutionId = getInstitutionId(authUser, selectedInstitution);
   const token = getToken();
-  const isLoginRequest = endpoint === "login";
+  const normalizedEndpoint = endpoint.replace(/^\//, "");
+  const isPublicRequest = PUBLIC_ENDPOINTS.has(normalizedEndpoint);
 
   try {
     const config = {
@@ -77,11 +84,11 @@ export const fetchApi = async (endpoint, body = null, method = "GET") => {
       },
     };
 
-    if (token && !isLoginRequest) {
+    if (token && !isPublicRequest) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
 
-    if (institutionId && !isLoginRequest) {
+    if (institutionId && !isPublicRequest) {
       config.headers["x-institution-id"] = institutionId;
     }
 
@@ -92,7 +99,7 @@ export const fetchApi = async (endpoint, body = null, method = "GET") => {
     const response = await axios(config);
     return response.data;
   } catch (error) {
-    if (error.response?.status === 401 && !isLoginRequest) {
+    if (error.response?.status === 401 && !isPublicRequest) {
       localStorage.removeItem("auth_user");
       localStorage.removeItem("selected_institution");
       localStorage.removeItem("token");

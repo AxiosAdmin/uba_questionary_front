@@ -3,6 +3,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { post } from "../helpers/FecthApi";
 import { useAppContext } from "../helpers/ContextApi";
+import { getPasswordValidationMessage } from "../helpers/passwordValidation";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -15,11 +16,18 @@ const Register = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   const { t } = useAppContext();
+  const passwordValidationMessage = getPasswordValidationMessage(password, t);
 
   const handleRegister = async (event) => {
     event.preventDefault();
     setError("");
     setSuccess("");
+
+    if (passwordValidationMessage) {
+      setError(passwordValidationMessage);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -57,7 +65,7 @@ const Register = () => {
   };
 
   return (
-    <Card style={{ maxWidth: "400px", margin: "100px auto", padding: "20px" }}>
+    <Card className="auth-card">
       <Card.Body>
         <h2>{t("register.title")}</h2>
         <Form onSubmit={handleRegister}>
@@ -96,9 +104,19 @@ const Register = () => {
             <Form.Control
               type={passwordView ? "text" : "password"}
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) => {
+                setPassword(event.target.value);
+                setError("");
+              }}
               required
+              isInvalid={Boolean(passwordValidationMessage)}
             />
+            <Form.Text className="auth-helper-text">
+              {t("password.requirements")}
+            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              {passwordValidationMessage}
+            </Form.Control.Feedback>
             <Button
               type="button"
               variant="secondary"
@@ -111,8 +129,8 @@ const Register = () => {
             </Button>
           </Form.Group>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {success && <p style={{ color: "green" }}>{success}</p>}
+          {error ? <p className="auth-message auth-message-error">{error}</p> : null}
+          {success ? <p className="auth-message auth-message-success">{success}</p> : null}
 
           <Button type="submit" className="w-100" disabled={isSubmitting}>
             {isSubmitting ? t("register.redirecting") : t("register.submit")}
