@@ -1,3 +1,8 @@
+## v1.4.2
+
+- Adjustments on payment after login
+- Fixed some portuguese translations
+
 ## v1.4.1
 
 - Visual Adjustments on Header
