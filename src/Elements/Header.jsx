@@ -8,7 +8,6 @@ const Header = () => {
   const {
     isAuthenticated,
     logout,
-    authUser,
     questionGenerationUsage,
     formatDate,
     language,
@@ -49,10 +48,6 @@ const Header = () => {
         year: "numeric",
       })
     : null;
-
-  const usageResetTitle = formattedCycleEnd
-    ? t("header.usageResetDate", { date: formattedCycleEnd })
-    : t("header.usageResetUnavailable");
 
   return (
     <Row className="header-shell w-100 m-0 p-0 py-4 px-4">

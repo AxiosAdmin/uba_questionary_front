@@ -10,6 +10,7 @@ const SubjectSelection = () => {
     getCurrentUserId,
     hasSubscriptionAccess,
     refreshSubscriptionAccess,
+    logout,
     selectedInstitution,
     setSelectedInstitution,
     t,
@@ -60,6 +61,7 @@ const SubjectSelection = () => {
     try {
       const response = await post("stripe/generate", { user_id: userId });
       if (response?.url_session) {
+        logout();
         window.location.href = response.url_session;
         return;
       }

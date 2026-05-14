@@ -159,7 +159,7 @@ describe("AppProvider", () => {
     expect(screen.getByTestId("language")).toHaveTextContent("pt");
     expect(localStorage.getItem("language")).toBe("pt");
     expect(screen.getByTestId("translated")).toHaveTextContent(
-      "Seu limite mensal sera renovado em 10/05/2026.",
+      "Seu limite mensal será renovado em 10/05/2026.",
     );
   });
 

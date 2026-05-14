@@ -109,12 +109,14 @@ describe("SubjectSelection page", () => {
     });
   });
 
-  test("redirects to checkout when the session is generated successfully", async () => {
+  test("logs out and redirects to checkout when the session is generated successfully", async () => {
+    const logout = jest.fn();
     useAppContext.mockReturnValue(
       createMockAppContext({
         hasSubscriptionAccess: false,
         selectedInstitution: { id: 1, name: "UBA" },
         getCurrentUserId: () => 99,
+        logout,
       }),
     );
     post.mockResolvedValue({ url_session: "https://checkout.example.com/1" });
@@ -126,6 +128,7 @@ describe("SubjectSelection page", () => {
     await waitFor(() => {
       expect(post).toHaveBeenCalledWith("stripe/generate", { user_id: 99 });
     });
+    expect(logout).toHaveBeenCalled();
     expect(window.location.href).toBe("https://checkout.example.com/1");
   });
 
