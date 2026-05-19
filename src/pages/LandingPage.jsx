@@ -32,7 +32,7 @@ const LandingPage = () => {
       title: t("landing.subject.anatomy"),
     },
     {
-      icon: "bi bi-hourglass-split",
+      icon: "bi bi-check-circle-fill",
       title: t("landing.subject.biology"),
     },
     {
