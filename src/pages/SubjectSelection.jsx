@@ -25,6 +25,10 @@ const SubjectSelection = () => {
       text: t("landing.subject.anatomy"),
       route: "anatomy",
     },
+    {
+      text: t("landing.subject.biology"),
+      route: "biology",
+    }
   ];
 
   const handleClickSubject = (subjectRoute) => {

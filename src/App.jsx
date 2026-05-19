@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AppProvider, useAppContext } from "./helpers/ContextApi";
 import AnatomyQuestionGenerator from "./pages/AnatomyQuestionGenerator";
+import BiologyQuestionGenerator from "./pages/BiologyQuestionGenerator";
 import Question from "./pages/Question";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -79,6 +80,24 @@ function AppContent() {
               hasQuestionPackageAvailable ? (
                 <>
                   <AnatomyQuestionGenerator />
+                  <Question />
+                </>
+              ) : isAuthenticated ? (
+                <Navigate to="/app" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/biology"
+            element={
+              isAuthenticated &&
+              hasSubscriptionAccess &&
+              hasSelectedInstitution &&
+              hasQuestionPackageAvailable ? (
+                <>
+                  <BiologyQuestionGenerator />
                   <Question />
                 </>
               ) : isAuthenticated ? (

@@ -1,3 +1,7 @@
+## v1.6.0
+
+- Added biology questions page
+
 ## v1.5.1
 
 - Adjustmens on landing page and checkout elements to show the price before go to the checkout

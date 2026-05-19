@@ -33,19 +33,15 @@ const LandingPage = () => {
     },
     {
       icon: "bi bi-hourglass-split",
+      title: t("landing.subject.biology"),
+    },
+    {
+      icon: "bi bi-hourglass-split",
       title: t("landing.subject.histology"),
     },
     {
       icon: "bi bi-hourglass-split",
       title: t("landing.subject.embryology"),
-    },
-    {
-      icon: "bi bi-hourglass-split",
-      title: t("landing.subject.molecularBiology"),
-    },
-    {
-      icon: "bi bi-hourglass-split",
-      title: t("landing.subject.genetics"),
     },
   ];
 

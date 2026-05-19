@@ -50,8 +50,7 @@ export const translations = {
     "landing.subject.anatomy": "Anatomy",
     "landing.subject.histology": "Histology (Coming soon)",
     "landing.subject.embryology": "Embryology (Coming soon)",
-    "landing.subject.molecularBiology": "Molecular biology (Coming soon)",
-    "landing.subject.genetics": "Genetics (Coming soon)",
+    "landing.subject.biology": "Molecular biology and Genetics",
     "landing.title": "UBA Trainer",
     "landing.subtitle": "A platform to train for your UBA exams.",
     "landing.planTitle": "150-question package",
@@ -159,6 +158,13 @@ export const translations = {
     "anatomy.selectedTopic": "Selected topic:",
     "anatomy.changeTopic": "Change topic",
     "anatomy.nextQuestion": "Next question",
+    "biology.topic.cellularMolecular": "Cell and Molecular Biology",
+    "biology.topic.genetics": "Genetics",
+    "biology.generateFailed": "Unable to generate a new question right now.",
+    "biology.chooseTopic": "Choose your topic",
+    "biology.selectedTopic": "Selected topic:",
+    "biology.changeTopic": "Change topic",
+    "biology.nextQuestion": "Next question",
 
     "question.userNotIdentified": "Unable to identify the authenticated user.",
     "question.saveFailed": "Unable to save your answer. Please try again.",
@@ -239,8 +245,7 @@ export const translations = {
     "landing.subject.anatomy": "Anatomía",
     "landing.subject.histology": "Histología (Próximamente)",
     "landing.subject.embryology": "Embriología (Próximamente)",
-    "landing.subject.molecularBiology": "Biología molecular (Próximamente)",
-    "landing.subject.genetics": "Genética (Próximamente)",
+    "landing.subject.biology": "Biología molecular y Genética",
     "landing.title": "UBA Trainer",
     "landing.subtitle":
       "Una plataforma para entrenarte para tus exámenes de la UBA.",
@@ -354,6 +359,14 @@ export const translations = {
     "anatomy.selectedTopic": "Tema seleccionado:",
     "anatomy.changeTopic": "Cambiar tema",
     "anatomy.nextQuestion": "Siguiente pregunta",
+    "biology.topic.cellularMolecular": "Biología Celular y Molecular",
+    "biology.topic.genetics": "Genética",
+    "biology.generateFailed":
+      "No fue posible generar una nueva pregunta en este momento.",
+    "biology.chooseTopic": "Elegí tu tema",
+    "biology.selectedTopic": "Tema seleccionado:",
+    "biology.changeTopic": "Cambiar tema",
+    "biology.nextQuestion": "Siguiente pregunta",
 
     "question.userNotIdentified":
       "No fue posible identificar al usuario autenticado.",
@@ -436,8 +449,7 @@ export const translations = {
     "landing.subject.anatomy": "Anatomia",
     "landing.subject.histology": "Histologia (Em breve)",
     "landing.subject.embryology": "Embriologia (Em breve)",
-    "landing.subject.molecularBiology": "Biologia molecular (Em breve)",
-    "landing.subject.genetics": "Genética (Em breve)",
+    "landing.subject.biology": "Biologia molecular e Genética",
     "landing.title": "UBA Trainer",
     "landing.subtitle":
       "Uma plataforma para treinar para as suas provas da UBA.",
@@ -551,6 +563,14 @@ export const translations = {
     "anatomy.selectedTopic": "Tema selecionado:",
     "anatomy.changeTopic": "Trocar tema",
     "anatomy.nextQuestion": "Próxima pergunta",
+    "biology.topic.cellularMolecular": "Biologia Celular e Molecular",
+    "biology.topic.genetics": "Genética",
+    "biology.generateFailed":
+      "Não foi possível gerar uma nova pergunta no momento.",
+    "biology.chooseTopic": "Escolha seu tema",
+    "biology.selectedTopic": "Tema selecionado:",
+    "biology.changeTopic": "Trocar tema",
+    "biology.nextQuestion": "Próxima pergunta",
 
     "question.userNotIdentified":
       "Não foi possível identificar o usuário autenticado.",
