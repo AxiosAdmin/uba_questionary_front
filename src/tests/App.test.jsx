@@ -61,6 +61,7 @@ jest.mock("../pages/Register", () => () => <div>register-page</div>);
 jest.mock("../pages/ResetPassword", () => () => <div>reset-password-page</div>);
 jest.mock("../pages/SubjectSelection", () => () => <div>subject-selection-page</div>);
 jest.mock("../pages/AnatomyQuestionGenerator", () => () => <div>anatomy-generator-page</div>);
+jest.mock("../pages/BiologyQuestionGenerator", () => () => <div>biology-generator-page</div>);
 jest.mock("../pages/Question", () => () => <div>question-page</div>);
 jest.mock("../pages/AnsweredQuestions", () => () => <div>answered-questions-page</div>);
 jest.mock("../pages/Feedback", () => () => <div>feedback-page</div>);
@@ -111,6 +112,12 @@ describe("App routes", () => {
     expect(screen.getByText("subject-selection-page")).toBeInTheDocument();
   });
 
+  test("redirects unauthenticated users trying to open biology to login", () => {
+    renderAppAt("/biology");
+
+    expect(screen.getByText("login-page")).toBeInTheDocument();
+  });
+
   test("renders the anatomy flow only when auth, subscription access and institution are present", () => {
     localStorage.setItem("auth_user", JSON.stringify({ id: 1, institution_id: 4 }));
     localStorage.setItem("selected_institution", JSON.stringify({ id: 4, name: "UBA" }));
@@ -118,6 +125,16 @@ describe("App routes", () => {
     renderAppAt("/anatomy");
 
     expect(screen.getByText("anatomy-generator-page")).toBeInTheDocument();
+    expect(screen.getByText("question-page")).toBeInTheDocument();
+  });
+
+  test("renders the biology flow only when auth, subscription access and institution are present", () => {
+    localStorage.setItem("auth_user", JSON.stringify({ id: 1, institution_id: 4 }));
+    localStorage.setItem("selected_institution", JSON.stringify({ id: 4, name: "UBA" }));
+
+    renderAppAt("/biology");
+
+    expect(screen.getByText("biology-generator-page")).toBeInTheDocument();
     expect(screen.getByText("question-page")).toBeInTheDocument();
   });
 

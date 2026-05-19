@@ -56,6 +56,24 @@ describe("SubjectSelection page", () => {
     expect(mockNavigate).toHaveBeenNthCalledWith(2, "/answered-questions");
   });
 
+  test("navigates to the biology route when the biology subject is selected", async () => {
+    useAppContext.mockReturnValue(
+      createMockAppContext({
+        isAuthenticated: true,
+        hasSubscriptionAccess: true,
+        hasQuestionPackageAvailable: true,
+        selectedInstitution: { id: 1, name: "UBA" },
+        hasSelectedInstitution: true,
+      }),
+    );
+
+    render(<SubjectSelection />);
+
+    await userEvent.click(screen.getByText("Molecular biology and Genetics"));
+
+    expect(mockNavigate).toHaveBeenCalledWith("/biology");
+  });
+
   test("shows an error when the checkout is requested without an authenticated user id", async () => {
     useAppContext.mockReturnValue(
       createMockAppContext({
