@@ -18,7 +18,7 @@ const Footer = () => {
           href="https://www.instagram.com/axios.academy/"
           target="_blank"
           rel="noreferrer"
-          aria-label="Instagram Axios Academia"
+          aria-label="Instagram de Axios Academia"
           className="ms-3"
         >
           <i className="bi bi-instagram" aria-hidden="true" />
