@@ -18,5 +18,8 @@ describe("Footer", () => {
     expect(
       screen.getByRole("link", { name: "soporte@axiosacademia.com" }),
     ).toHaveAttribute("href", "mailto:soporte@axiosacademia.com");
+    expect(
+      screen.getByRole("link", { name: "Instagram Axios Academy" }),
+    ).toHaveAttribute("href", "https://www.instagram.com/axios.academy/");
   });
 });
