@@ -1,3 +1,7 @@
+## v1.7.1
+
+- Changed from CBU to DNI because one user could have more than one CBU but just one DNI
+
 ## v1.7.0
 
 - Included cupons to the application
