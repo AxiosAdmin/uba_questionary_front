@@ -85,7 +85,7 @@ describe("Login page", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/");
   });
 
-  test("preserves nested institution user data such as cbu on login", async () => {
+  test("preserves nested institution user data such as dni on login", async () => {
     const login = jest.fn();
     useAppContext.mockReturnValue(createMockAppContext({ login }));
     post.mockResolvedValue({
@@ -98,7 +98,7 @@ describe("Login page", () => {
           id: 1,
           name: "Pedro Vieira",
           nickname: "pedro",
-          cbu: "0000000000000000000000",
+          dni: "00000000",
         },
         institution: {
           id: 4,
@@ -123,7 +123,7 @@ describe("Login page", () => {
       expect(login).toHaveBeenCalledWith(
         expect.objectContaining({
           user: expect.objectContaining({
-            cbu: "0000000000000000000000",
+            dni: "00000000",
             nickname: "pedro",
           }),
         }),

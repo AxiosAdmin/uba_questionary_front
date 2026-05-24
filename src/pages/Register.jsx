@@ -9,7 +9,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const [cbu, setCbu] = useState("");
+  const [dni, setDni] = useState("");
   const [password, setPassword] = useState("");
   const [passwordView, setPasswordView] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,7 +36,7 @@ const Register = () => {
         name,
         email,
         nickname,
-        cbu,
+        dni,
         password,
       });
       const userId = createUserResponse?.data?.id;
@@ -100,17 +100,17 @@ const Register = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="registerCbu">
-            <Form.Label>{t("register.cbu")}</Form.Label>
+          <Form.Group className="mb-3" controlId="registerDni">
+            <Form.Label>{t("register.dni")}</Form.Label>
             <Form.Control
               type="text"
-              value={cbu}
-              onChange={(event) => setCbu(event.target.value)}
-              placeholder={t("register.cbuPlaceholder")}
+              value={dni}
+              onChange={(event) => setDni(event.target.value)}
+              placeholder={t("register.dniPlaceholder")}
               required
             />
             <Form.Text className="auth-helper-text">
-              {t("register.cbuHelp")}
+              {t("register.dniHelp")}
             </Form.Text>
           </Form.Group>
 

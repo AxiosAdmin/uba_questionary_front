@@ -46,7 +46,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("CBU"), "0070010800000001234565");
+    await userEvent.type(screen.getByLabelText("DNI"), "12345678");
     await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and buy package" }));
 
@@ -55,7 +55,7 @@ describe("Register page", () => {
         name: "Pedro",
         email: "pedro@example.com",
         nickname: "pedro",
-        cbu: "0070010800000001234565",
+        dni: "12345678",
         password: "Secret123!",
       });
     });
@@ -72,7 +72,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("CBU"), "0070010800000001234565");
+    await userEvent.type(screen.getByLabelText("DNI"), "12345678");
     await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and buy package" }));
 
@@ -91,7 +91,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("CBU"), "0070010800000001234565");
+    await userEvent.type(screen.getByLabelText("DNI"), "12345678");
     await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and buy package" }));
 
@@ -115,7 +115,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("CBU"), "0070010800000001234565");
+    await userEvent.type(screen.getByLabelText("DNI"), "12345678");
     await userEvent.type(passwordInput, "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and buy package" }));
 
@@ -135,7 +135,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("CBU"), "0070010800000001234565");
+    await userEvent.type(screen.getByLabelText("DNI"), "12345678");
     await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
     await userEvent.click(screen.getByRole("button", { name: "Register and buy package" }));
 
@@ -149,7 +149,7 @@ describe("Register page", () => {
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
     await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("CBU"), "0070010800000001234565");
+    await userEvent.type(screen.getByLabelText("DNI"), "12345678");
     await userEvent.type(screen.getByLabelText("Password"), "secret");
     await userEvent.click(screen.getByRole("button", { name: "Register and buy package" }));
 

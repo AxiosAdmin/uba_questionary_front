@@ -110,9 +110,9 @@ export const translations = {
     "register.name": "Name",
     "register.email": "Email",
     "register.nickname": "Nickname",
-    "register.cbu": "CBU",
-    "register.cbuPlaceholder": "0070010800000001234565",
-    "register.cbuHelp": "Enter the 22-digit CBU linked to your bank account.",
+    "register.dni": "DNI",
+    "register.dniPlaceholder": "12345678",
+    "register.dniHelp": "Enter your 7 or 8-digit Argentine DNI.",
     "register.password": "Password",
     "register.hidePassword": "Hide password",
     "register.showPassword": "Show password",
@@ -153,10 +153,10 @@ export const translations = {
       "Your previous package has no remaining questions. We will log you out before opening Stripe checkout so your next login loads the updated access.",
     "subjectSelection.buyAnotherPackage": "Buy another package",
     "subjectSelection.viewMyAnswers": "View my answers",
-    "subjectSelection.cbuUpdateRequired":
-      "Your account needs a CBU update before your registration is fully up to date. Open Profile to finish your registration.",
-    "subjectSelection.checkoutBlockedByCbu":
-      "Update your CBU in Profile before starting the checkout.",
+    "subjectSelection.dniUpdateRequired":
+      "Your account needs a DNI update before your registration is fully up to date. Open Profile to finish your registration.",
+    "subjectSelection.checkoutBlockedByDni":
+      "Update your DNI in Profile before starting the checkout.",
     "subjectSelection.openProfile": "Open Profile",
 
     "profile.title": "Profile",
@@ -164,10 +164,10 @@ export const translations = {
       "Review your registration data and update it whenever needed.",
     "profile.loading": "Loading your profile...",
     "profile.loadFailed": "Unable to load your profile right now.",
-    "profile.cbuPending":
-      "Your account still needs a valid CBU. Update your data below to complete your registration.",
-    "profile.cbuLocked":
-      "Your CBU is already registered and cannot be changed here.",
+    "profile.dniPending":
+      "Your account still needs a valid DNI. Update your data below to complete your registration.",
+    "profile.dniLocked":
+      "Your DNI is already registered and cannot be changed here.",
     "profile.success": "Profile updated successfully.",
     "profile.saveFailed": "Unable to update your profile right now.",
     "profile.saving": "Saving...",
@@ -333,10 +333,10 @@ export const translations = {
     "register.name": "Nombre",
     "register.email": "Email",
     "register.nickname": "Nickname",
-    "register.cbu": "CBU",
-    "register.cbuPlaceholder": "0070010800000001234565",
-    "register.cbuHelp":
-      "Ingresa el CBU de 22 digitos vinculado a tu cuenta bancaria.",
+    "register.dni": "DNI",
+    "register.dniPlaceholder": "12345678",
+    "register.dniHelp":
+      "Ingresa tu DNI argentino de 7 u 8 digitos.",
     "register.password": "Contraseña",
     "register.hidePassword": "Ocultar contraseña",
     "register.showPassword": "Mostrar contraseña",
@@ -378,10 +378,10 @@ export const translations = {
       "Tu paquete anterior ya no tiene preguntas disponibles. Cerraremos tu sesión antes de abrir el checkout de Stripe para que tu próximo login cargue el acceso actualizado.",
     "subjectSelection.buyAnotherPackage": "Comprar otro paquete",
     "subjectSelection.viewMyAnswers": "Ver mis respuestas",
-    "subjectSelection.cbuUpdateRequired":
-      "Tu cuenta necesita actualizar el CBU para que el registro quede completo. Abre Perfil para terminar tu registro.",
-    "subjectSelection.checkoutBlockedByCbu":
-      "Actualiza tu CBU en Perfil antes de iniciar el checkout.",
+    "subjectSelection.dniUpdateRequired":
+      "Tu cuenta necesita actualizar el DNI para que el registro quede completo. Abre Perfil para terminar tu registro.",
+    "subjectSelection.checkoutBlockedByDni":
+      "Actualiza tu DNI en Perfil antes de iniciar el checkout.",
     "subjectSelection.openProfile": "Abrir Perfil",
 
     "profile.title": "Perfil",
@@ -389,10 +389,10 @@ export const translations = {
       "Revisa los datos de tu cuenta y actualizalos cuando lo necesites.",
     "profile.loading": "Cargando tu perfil...",
     "profile.loadFailed": "No fue posible cargar tu perfil en este momento.",
-    "profile.cbuPending":
-      "Tu cuenta todavia necesita un CBU valido. Actualiza los datos de abajo para completar tu registro.",
-    "profile.cbuLocked":
-      "Tu CBU ya esta registrado y no se puede cambiar desde aqui.",
+    "profile.dniPending":
+      "Tu cuenta todavia necesita un DNI valido. Actualiza los datos de abajo para completar tu registro.",
+    "profile.dniLocked":
+      "Tu DNI ya esta registrado y no se puede cambiar desde aqui.",
     "profile.success": "Perfil actualizado con exito.",
     "profile.saveFailed": "No fue posible actualizar tu perfil en este momento.",
     "profile.saving": "Guardando...",
@@ -562,9 +562,9 @@ export const translations = {
     "register.name": "Nome",
     "register.email": "Email",
     "register.nickname": "Nickname",
-    "register.cbu": "CBU",
-    "register.cbuPlaceholder": "0070010800000001234565",
-    "register.cbuHelp": "Informe o CBU de 22 digitos vinculado a sua conta bancaria.",
+    "register.dni": "DNI",
+    "register.dniPlaceholder": "12345678",
+    "register.dniHelp": "Informe seu DNI argentino com 7 ou 8 digitos.",
     "register.password": "Senha",
     "register.hidePassword": "Ocultar senha",
     "register.showPassword": "Mostrar senha",
@@ -606,10 +606,10 @@ export const translations = {
       "Seu pacote anterior não tem mais questões disponíveis. Vamos encerrar sua sessão antes de abrir o checkout do Stripe para que o próximo login carregue o acesso atualizado.",
     "subjectSelection.buyAnotherPackage": "Comprar outro pacote",
     "subjectSelection.viewMyAnswers": "Ver minhas respostas",
-    "subjectSelection.cbuUpdateRequired":
-      "Sua conta precisa atualizar o CBU para que o cadastro fique completo. Abra Perfil para concluir o cadastro.",
-    "subjectSelection.checkoutBlockedByCbu":
-      "Atualize seu CBU no Perfil antes de iniciar o checkout.",
+    "subjectSelection.dniUpdateRequired":
+      "Sua conta precisa atualizar o DNI para que o cadastro fique completo. Abra Perfil para concluir o cadastro.",
+    "subjectSelection.checkoutBlockedByDni":
+      "Atualize seu DNI no Perfil antes de iniciar o checkout.",
     "subjectSelection.openProfile": "Abrir Perfil",
 
     "profile.title": "Perfil",
@@ -617,10 +617,10 @@ export const translations = {
       "Revise os dados da sua conta e atualize-os sempre que precisar.",
     "profile.loading": "Carregando seu perfil...",
     "profile.loadFailed": "Não foi possível carregar seu perfil agora.",
-    "profile.cbuPending":
-      "Sua conta ainda precisa de um CBU válido. Atualize os dados abaixo para concluir seu cadastro.",
-    "profile.cbuLocked":
-      "Seu CBU já está cadastrado e não pode ser alterado por aqui.",
+    "profile.dniPending":
+      "Sua conta ainda precisa de um DNI válido. Atualize os dados abaixo para concluir seu cadastro.",
+    "profile.dniLocked":
+      "Seu DNI já está cadastrado e não pode ser alterado por aqui.",
     "profile.success": "Perfil atualizado com sucesso.",
     "profile.saveFailed": "Não foi possível atualizar seu perfil agora.",
     "profile.saving": "Salvando...",

@@ -44,7 +44,7 @@ export const createMockAppContext = (overrides = {}) => {
     isAuthenticated: false,
     hasSelectedInstitution: false,
     hasSubscriptionAccess: false,
-    requiresCbuUpdate: false,
+    requiresDniUpdate: false,
     hasQuestionPackageAvailable: true,
     updateAuthUserProfile: jest.fn(),
     refreshSubscriptionAccess: jest.fn(),

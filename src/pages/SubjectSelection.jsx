@@ -11,7 +11,7 @@ const SubjectSelection = () => {
     hasSubscriptionAccess,
     hasQuestionPackageAvailable,
     logout,
-    requiresCbuUpdate,
+    requiresDniUpdate,
     refreshSubscriptionAccess,
     selectedInstitution,
     setSelectedInstitution,
@@ -53,8 +53,8 @@ const SubjectSelection = () => {
   };
 
   const handleGenerateCheckout = async () => {
-    if (requiresCbuUpdate) {
-      setError(t("subjectSelection.checkoutBlockedByCbu"));
+    if (requiresDniUpdate) {
+      setError(t("subjectSelection.checkoutBlockedByDni"));
       setInfoMessage("");
       return;
     }
@@ -152,7 +152,7 @@ const SubjectSelection = () => {
                       <Button
                         className="w-100"
                         onClick={handleGenerateCheckout}
-                        disabled={isPreparingCheckout || requiresCbuUpdate}
+                        disabled={isPreparingCheckout || requiresDniUpdate}
                       >
                         {isPreparingCheckout ? (
                           <>
@@ -183,9 +183,9 @@ const SubjectSelection = () => {
                 </Col>
               </Row>
 
-              {requiresCbuUpdate ? (
+              {requiresDniUpdate ? (
                 <Alert variant="warning" className="mb-3">
-                  {t("subjectSelection.cbuUpdateRequired")}
+                  {t("subjectSelection.dniUpdateRequired")}
                   <div className="mt-3">
                     <Button
                       variant="outline-dark"
@@ -253,7 +253,7 @@ const SubjectSelection = () => {
 
               <Button
                 onClick={handleGenerateCheckout}
-                disabled={isPreparingCheckout || requiresCbuUpdate}
+                disabled={isPreparingCheckout || requiresDniUpdate}
               >
                 {isPreparingCheckout ? (
                   <>
@@ -265,9 +265,9 @@ const SubjectSelection = () => {
                 )}
               </Button>
 
-              {requiresCbuUpdate ? (
+              {requiresDniUpdate ? (
                 <Alert variant="warning" className="mt-3 mb-0">
-                  {t("subjectSelection.cbuUpdateRequired")}
+                  {t("subjectSelection.dniUpdateRequired")}
                   <div className="mt-3">
                     <Button
                       variant="outline-dark"
@@ -289,9 +289,9 @@ const SubjectSelection = () => {
           </Card>
         ) : (
           <>
-            {requiresCbuUpdate ? (
+            {requiresDniUpdate ? (
               <Alert variant="warning" className="mb-4">
-                {t("subjectSelection.cbuUpdateRequired")}
+                {t("subjectSelection.dniUpdateRequired")}
                 <div className="mt-3">
                   <Button
                     variant="outline-dark"

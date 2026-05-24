@@ -55,12 +55,12 @@ const getStoredLanguage = () => {
   }
 };
 
-export const MISSING_CBU_PLACEHOLDER = "0000000000000000000000";
+export const MISSING_DNI_PLACEHOLDER = "00000000";
 
-export const getUserCbu = (user) => user?.cbu || user?.user?.cbu || null;
+export const getUserDni = (user) => user?.dni || user?.user?.dni || null;
 
-export const userRequiresCbuUpdate = (user) =>
-  getUserCbu(user) === MISSING_CBU_PLACEHOLDER;
+export const userRequiresDniUpdate = (user) =>
+  getUserDni(user) === MISSING_DNI_PLACEHOLDER;
 
 export const mergeAuthUserProfile = (currentUser, profileData) => {
   if (!currentUser) {
@@ -137,7 +137,7 @@ export const AppProvider = ({ children }) => {
   const [hasSubscriptionAccess, setHasSubscriptionAccess] = useState(() =>
     userHasSubscriptionAccess(getStoredAuthUser()),
   );
-  const requiresCbuUpdate = userRequiresCbuUpdate(authUser);
+  const requiresDniUpdate = userRequiresDniUpdate(authUser);
   const hasQuestionPackageAvailable =
     authUser?.global_role === "Admin" ||
     !isQuestionPackageExhausted(questionGenerationUsage);
@@ -365,7 +365,7 @@ export const AppProvider = ({ children }) => {
     isAuthenticated: Boolean(authUser),
     hasSelectedInstitution: Boolean(selectedInstitution),
     hasSubscriptionAccess,
-    requiresCbuUpdate,
+    requiresDniUpdate,
     hasQuestionPackageAvailable,
     updateAuthUserProfile,
     refreshSubscriptionAccess,

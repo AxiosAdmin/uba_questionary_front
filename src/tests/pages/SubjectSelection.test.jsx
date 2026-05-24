@@ -275,13 +275,13 @@ describe("SubjectSelection page", () => {
     expect(screen.getByText("Active account")).toBeInTheDocument();
   });
 
-  test("shows a cbu update warning when the logged user is using the migration placeholder", () => {
+  test("shows a dni update warning when the logged user is using the migration placeholder", () => {
     useAppContext.mockReturnValue(
       createMockAppContext({
         isAuthenticated: true,
         hasSubscriptionAccess: true,
         hasQuestionPackageAvailable: true,
-        requiresCbuUpdate: true,
+        requiresDniUpdate: true,
         selectedInstitution: { id: 1, name: "UBA" },
       }),
     );
@@ -290,17 +290,17 @@ describe("SubjectSelection page", () => {
 
     expect(
       screen.getByText(
-        "Your account needs a CBU update before your registration is fully up to date. Open Profile to finish your registration.",
+        "Your account needs a DNI update before your registration is fully up to date. Open Profile to finish your registration.",
       ),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Open Profile" })).toBeInTheDocument();
   });
 
-  test("blocks checkout in the frontend when the user still has the placeholder cbu", async () => {
+  test("blocks checkout in the frontend when the user still has the placeholder dni", async () => {
     useAppContext.mockReturnValue(
       createMockAppContext({
         hasSubscriptionAccess: false,
-        requiresCbuUpdate: true,
+        requiresDniUpdate: true,
         selectedInstitution: { id: 1, name: "UBA" },
         getCurrentUserId: () => 99,
       }),

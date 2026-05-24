@@ -30,7 +30,7 @@ describe("Profile page", () => {
     useAppContext.mockReturnValue(
       createMockAppContext({
         isAuthenticated: true,
-        requiresCbuUpdate: true,
+        requiresDniUpdate: true,
         updateAuthUserProfile,
       }),
     );
@@ -39,7 +39,7 @@ describe("Profile page", () => {
         name: "Pedro Vieira",
         email: "pedro@example.com",
         nickname: "pedrov",
-        cbu: "0000000000000000000000",
+        dni: "00000000",
       },
     });
     put.mockResolvedValue({
@@ -47,7 +47,7 @@ describe("Profile page", () => {
         name: "Pedro Vieira",
         email: "pedro@example.com",
         nickname: "pedrov",
-        cbu: "0070010800000001234565",
+        dni: "12345678",
       },
     });
 
@@ -56,15 +56,15 @@ describe("Profile page", () => {
     expect(await screen.findByText("Profile")).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Your account still needs a valid CBU. Update your data below to complete your registration.",
+        "Your account still needs a valid DNI. Update your data below to complete your registration.",
       ),
     ).toBeInTheDocument();
 
-    const cbuInput = await screen.findByLabelText("CBU");
-    expect(cbuInput).toHaveValue("0000000000000000000000");
+    const dniInput = await screen.findByLabelText("DNI");
+    expect(dniInput).toHaveValue("00000000");
 
-    await userEvent.clear(cbuInput);
-    await userEvent.type(cbuInput, "0070010800000001234565");
+    await userEvent.clear(dniInput);
+    await userEvent.type(dniInput, "12345678");
     await userEvent.click(screen.getByRole("button", { name: "Update profile" }));
 
     await waitFor(() => {
@@ -72,14 +72,14 @@ describe("Profile page", () => {
         name: "Pedro Vieira",
         email: "pedro@example.com",
         nickname: "pedrov",
-        cbu: "0070010800000001234565",
+        dni: "12345678",
       });
     });
     expect(updateAuthUserProfile).toHaveBeenCalledWith({
       name: "Pedro Vieira",
       email: "pedro@example.com",
       nickname: "pedrov",
-      cbu: "0070010800000001234565",
+      dni: "12345678",
     });
     expect(await screen.findByText("Profile updated successfully.")).toBeInTheDocument();
   });
@@ -108,7 +108,7 @@ describe("Profile page", () => {
         name: "Pedro Vieira",
         email: "pedro@example.com",
         nickname: "pedrov",
-        cbu: "0070010800000001234565",
+        dni: "12345678",
       },
     });
     put.mockRejectedValue({ response: { data: { detail: "Email already exists" } } });
@@ -124,11 +124,11 @@ describe("Profile page", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/app");
   });
 
-  test("keeps the cbu field locked for users who already have a valid cbu", async () => {
+  test("keeps the dni field locked for users who already have a valid dni", async () => {
     useAppContext.mockReturnValue(
       createMockAppContext({
         isAuthenticated: true,
-        requiresCbuUpdate: false,
+        requiresDniUpdate: false,
       }),
     );
     get.mockResolvedValue({
@@ -136,20 +136,20 @@ describe("Profile page", () => {
         name: "Pedro Vieira",
         email: "pedro@example.com",
         nickname: "pedrov",
-        cbu: "0070010800000001234565",
+        dni: "12345678",
       },
     });
 
     render(<Profile />);
 
-    const cbuInput = await screen.findByLabelText("CBU");
-    expect(cbuInput).toBeDisabled();
+    const dniInput = await screen.findByLabelText("DNI");
+    expect(dniInput).toBeDisabled();
     expect(
-      screen.getByText("Your CBU is already registered and cannot be changed here."),
+      screen.getByText("Your DNI is already registered and cannot be changed here."),
     ).toBeInTheDocument();
     expect(
       screen.queryByText(
-        "Your account still needs a valid CBU. Update your data below to complete your registration.",
+        "Your account still needs a valid DNI. Update your data below to complete your registration.",
       ),
     ).not.toBeInTheDocument();
   });

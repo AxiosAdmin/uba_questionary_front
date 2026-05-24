@@ -5,13 +5,13 @@ import { get, put } from "../helpers/FecthApi";
 import { useAppContext } from "../helpers/ContextApi";
 
 const Profile = () => {
-  const { requiresCbuUpdate, t, updateAuthUserProfile } = useAppContext();
+  const { requiresDniUpdate, t, updateAuthUserProfile } = useAppContext();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     nickname: "",
-    cbu: "",
+    dni: "",
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -35,7 +35,7 @@ const Profile = () => {
           name: user.name || "",
           email: user.email || "",
           nickname: user.nickname || "",
-          cbu: user.cbu || "",
+          dni: user.dni || "",
         });
       } catch (requestError) {
         setError(
@@ -78,7 +78,7 @@ const Profile = () => {
         name: user.name || "",
         email: user.email || "",
         nickname: user.nickname || "",
-        cbu: user.cbu || "",
+        dni: user.dni || "",
       });
       updateAuthUserProfile(user);
       setSuccessMessage(t("profile.success"));
@@ -99,8 +99,8 @@ const Profile = () => {
         <h2>{t("profile.title")}</h2>
         <p className="auth-helper-text">{t("profile.description")}</p>
 
-        {requiresCbuUpdate ? (
-          <Alert variant="warning">{t("profile.cbuPending")}</Alert>
+        {requiresDniUpdate ? (
+          <Alert variant="warning">{t("profile.dniPending")}</Alert>
         ) : null}
 
         {isLoading ? (
@@ -140,18 +140,18 @@ const Profile = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="profileCbu">
-              <Form.Label>{t("register.cbu")}</Form.Label>
+            <Form.Group className="mb-3" controlId="profileDni">
+              <Form.Label>{t("register.dni")}</Form.Label>
               <Form.Control
                 type="text"
-                value={formData.cbu}
-                onChange={handleChange("cbu")}
-                placeholder={t("register.cbuPlaceholder")}
-                disabled={!requiresCbuUpdate}
+                value={formData.dni}
+                onChange={handleChange("dni")}
+                placeholder={t("register.dniPlaceholder")}
+                disabled={!requiresDniUpdate}
                 required
               />
               <Form.Text className="auth-helper-text">
-                {requiresCbuUpdate ? t("register.cbuHelp") : t("profile.cbuLocked")}
+                {requiresDniUpdate ? t("register.dniHelp") : t("profile.dniLocked")}
               </Form.Text>
             </Form.Group>
 

@@ -322,11 +322,11 @@ describe("Header", () => {
     expect(removeEventListener).toHaveBeenCalledWith("change", expect.any(Function));
   });
 
-  test("shows a warning indicator on the profile item when the user still needs to update the cbu", async () => {
+  test("shows a warning indicator on the profile item when the user still needs to update the dni", async () => {
     useAppContext.mockReturnValue(
       createMockAppContext({
         isAuthenticated: true,
-        requiresCbuUpdate: true,
+        requiresDniUpdate: true,
       }),
     );
 
@@ -336,7 +336,7 @@ describe("Header", () => {
 
     expect(
       await screen.findByLabelText(
-        "Your account still needs a valid CBU. Update your data below to complete your registration.",
+        "Your account still needs a valid DNI. Update your data below to complete your registration.",
       ),
     ).toBeInTheDocument();
   });

@@ -14,7 +14,7 @@ const Header = () => {
     isAuthenticated,
     logout,
     questionGenerationUsage,
-    requiresCbuUpdate,
+    requiresDniUpdate,
     language,
     setLanguage,
     t,
@@ -129,10 +129,10 @@ const Header = () => {
                       <i className="bi bi-person-circle me-2" aria-hidden="true" />
                       {t("header.profile")}
                     </span>
-                    {requiresCbuUpdate ? (
+                    {requiresDniUpdate ? (
                       <i
                         className="bi bi-exclamation-circle-fill text-warning"
-                        aria-label={t("profile.cbuPending")}
+                        aria-label={t("profile.dniPending")}
                       />
                     ) : null}
                   </span>
