@@ -65,6 +65,7 @@ jest.mock("../pages/BiologyQuestionGenerator", () => () => <div>biology-generato
 jest.mock("../pages/Question", () => () => <div>question-page</div>);
 jest.mock("../pages/AnsweredQuestions", () => () => <div>answered-questions-page</div>);
 jest.mock("../pages/Feedback", () => () => <div>feedback-page</div>);
+jest.mock("../pages/Profile", () => () => <div>profile-page</div>);
 jest.mock("../Elements/Header", () => () => <div>header</div>);
 jest.mock("../Elements/Footer", () => () => <div>footer</div>);
 jest.mock("../Elements/LanguageSelector", () => () => <div>language-selector</div>);
@@ -188,8 +189,22 @@ describe("App routes", () => {
     expect(screen.getByText("feedback-page")).toBeInTheDocument();
   });
 
+  test("renders profile only for authenticated users", () => {
+    localStorage.setItem("auth_user", JSON.stringify({ id: 1, institution_id: 4 }));
+
+    renderAppAt("/profile");
+
+    expect(screen.getByText("profile-page")).toBeInTheDocument();
+  });
+
   test("redirects unauthenticated users from feedback to login", () => {
     renderAppAt("/feedback");
+
+    expect(screen.getByText("login-page")).toBeInTheDocument();
+  });
+
+  test("redirects unauthenticated users from profile to login", () => {
+    renderAppAt("/profile");
 
     expect(screen.getByText("login-page")).toBeInTheDocument();
   });

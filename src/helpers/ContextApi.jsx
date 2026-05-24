@@ -5,6 +5,7 @@ import {
   SUPPORTED_LANGUAGES,
   translations,
 } from "./translations";
+import { get } from "./FecthApi.jsx";
 
 const AppContext = createContext();
 
@@ -52,6 +53,34 @@ const getStoredLanguage = () => {
     localStorage.removeItem("language");
     return DEFAULT_LANGUAGE;
   }
+};
+
+export const MISSING_CBU_PLACEHOLDER = "0000000000000000000000";
+
+export const getUserCbu = (user) => user?.cbu || user?.user?.cbu || null;
+
+export const userRequiresCbuUpdate = (user) =>
+  getUserCbu(user) === MISSING_CBU_PLACEHOLDER;
+
+export const mergeAuthUserProfile = (currentUser, profileData) => {
+  if (!currentUser) {
+    return currentUser;
+  }
+
+  if (currentUser.user) {
+    return {
+      ...currentUser,
+      user: {
+        ...currentUser.user,
+        ...profileData,
+      },
+    };
+  }
+
+  return {
+    ...currentUser,
+    ...profileData,
+  };
 };
 
 const userHasSubscriptionAccess = (user) => {
@@ -108,6 +137,7 @@ export const AppProvider = ({ children }) => {
   const [hasSubscriptionAccess, setHasSubscriptionAccess] = useState(() =>
     userHasSubscriptionAccess(getStoredAuthUser()),
   );
+  const requiresCbuUpdate = userRequiresCbuUpdate(authUser);
   const hasQuestionPackageAvailable =
     authUser?.global_role === "Admin" ||
     !isQuestionPackageExhausted(questionGenerationUsage);
@@ -167,6 +197,17 @@ export const AppProvider = ({ children }) => {
     setSelectedInstitutionState(institution);
   };
 
+  const updateAuthUserProfile = (profileData) => {
+    if (!authUser) {
+      return;
+    }
+
+    const nextAuthUser = mergeAuthUserProfile(authUser, profileData);
+    localStorage.setItem("auth_user", JSON.stringify(nextAuthUser));
+    setAuthUser(nextAuthUser);
+    setHasSubscriptionAccess(userHasSubscriptionAccess(nextAuthUser));
+  };
+
   const getCurrentUserId = () => {
     return authUser?.user_id || authUser?.id || null;
   };
@@ -206,6 +247,46 @@ export const AppProvider = ({ children }) => {
       localStorage.setItem("question_generation_usage", JSON.stringify(nextUsage));
       return nextUsage;
     });
+  };
+
+  const refreshSubscriptionAccess = async () => {
+    const userId = getCurrentUserId();
+
+    if (!userId) {
+      setHasSubscriptionAccess(false);
+      return false;
+    }
+
+    if (authUser?.global_role === "Admin") {
+      setHasSubscriptionAccess(true);
+      return true;
+    }
+
+    let institution = selectedInstitution;
+    if (!institution) {
+      const response = await get("institutions");
+      institution = response.data.find((item) => item.name === "UBA") || null;
+
+      if (!institution) {
+        setHasSubscriptionAccess(false);
+        return false;
+      }
+
+      setSelectedInstitution(institution);
+    }
+
+    try {
+      await get("questions");
+      setHasSubscriptionAccess(true);
+      return true;
+    } catch (error) {
+      if (error.response?.status === 403) {
+        setHasSubscriptionAccess(false);
+        return false;
+      }
+
+      throw error;
+    }
   };
 
   const login = (user, token, usage = null) => {
@@ -284,7 +365,10 @@ export const AppProvider = ({ children }) => {
     isAuthenticated: Boolean(authUser),
     hasSelectedInstitution: Boolean(selectedInstitution),
     hasSubscriptionAccess,
+    requiresCbuUpdate,
     hasQuestionPackageAvailable,
+    updateAuthUserProfile,
+    refreshSubscriptionAccess,
     login,
     logout,
     language,

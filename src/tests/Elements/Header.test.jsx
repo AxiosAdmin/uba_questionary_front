@@ -117,6 +117,10 @@ describe("Header", () => {
     await userEvent.click(screen.getByText("Home"));
 
     await userEvent.click(screen.getByRole("button", { name: "Menu" }));
+    await waitFor(() => expect(screen.getByText("Profile")).toBeInTheDocument());
+    await userEvent.click(screen.getByText("Profile"));
+
+    await userEvent.click(screen.getByRole("button", { name: "Menu" }));
     await waitFor(() => expect(screen.getByText("My answers")).toBeInTheDocument());
     await userEvent.click(screen.getByText("My answers"));
 
@@ -141,11 +145,12 @@ describe("Header", () => {
     await userEvent.click(screen.getByRole("button", { name: "Log out" }));
 
     expect(mockNavigate).toHaveBeenNthCalledWith(1, "/app");
-    expect(mockNavigate).toHaveBeenNthCalledWith(2, "/answered-questions");
-    expect(mockNavigate).toHaveBeenNthCalledWith(3, "/feedback");
+    expect(mockNavigate).toHaveBeenNthCalledWith(2, "/profile");
+    expect(mockNavigate).toHaveBeenNthCalledWith(3, "/answered-questions");
+    expect(mockNavigate).toHaveBeenNthCalledWith(4, "/feedback");
     expect(setLanguage).toHaveBeenCalledWith("pt");
     expect(logout).toHaveBeenCalled();
-    expect(mockNavigate).toHaveBeenNthCalledWith(4, "/login");
+    expect(mockNavigate).toHaveBeenNthCalledWith(5, "/login");
   });
 
   test("navigates home when the authenticated user clicks the logo", async () => {
@@ -315,6 +320,25 @@ describe("Header", () => {
 
     expect(addEventListener).toHaveBeenCalledWith("change", expect.any(Function));
     expect(removeEventListener).toHaveBeenCalledWith("change", expect.any(Function));
+  });
+
+  test("shows a warning indicator on the profile item when the user still needs to update the cbu", async () => {
+    useAppContext.mockReturnValue(
+      createMockAppContext({
+        isAuthenticated: true,
+        requiresCbuUpdate: true,
+      }),
+    );
+
+    render(<Header />);
+
+    await userEvent.click(screen.getByRole("button", { name: "Menu" }));
+
+    expect(
+      await screen.findByLabelText(
+        "Your account still needs a valid CBU. Update your data below to complete your registration.",
+      ),
+    ).toBeInTheDocument();
   });
 
   test("falls back to legacy matchMedia listeners when addEventListener is unavailable", () => {

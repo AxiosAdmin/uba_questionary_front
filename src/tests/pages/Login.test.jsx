@@ -85,6 +85,54 @@ describe("Login page", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/");
   });
 
+  test("preserves nested institution user data such as cbu on login", async () => {
+    const login = jest.fn();
+    useAppContext.mockReturnValue(createMockAppContext({ login }));
+    post.mockResolvedValue({
+      user: {
+        user_id: 1,
+        institution_id: 4,
+        profile_id: 8,
+        created_at: "2026-05-24T00:00:00",
+        user: {
+          id: 1,
+          name: "Pedro Vieira",
+          nickname: "pedro",
+          cbu: "0000000000000000000000",
+        },
+        institution: {
+          id: 4,
+          name: "UBA",
+        },
+        profile: {
+          id: 8,
+          name: "basic_uba_user",
+        },
+      },
+      token: "token-123",
+      question_generation_usage: { questions_used: 1, questions_remaining: 9 },
+    });
+
+    render(<Login />);
+
+    await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
+    await userEvent.type(screen.getByLabelText("Password"), "secret");
+    await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
+
+    await waitFor(() => {
+      expect(login).toHaveBeenCalledWith(
+        expect.objectContaining({
+          user: expect.objectContaining({
+            cbu: "0000000000000000000000",
+            nickname: "pedro",
+          }),
+        }),
+        "token-123",
+        { questions_used: 1, questions_remaining: 9 },
+      );
+    });
+  });
+
   test("shows API errors, toggles password visibility and navigates to register", async () => {
     const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     useAppContext.mockReturnValue(createMockAppContext());

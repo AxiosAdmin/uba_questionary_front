@@ -14,6 +14,7 @@ const Header = () => {
     isAuthenticated,
     logout,
     questionGenerationUsage,
+    requiresCbuUpdate,
     language,
     setLanguage,
     t,
@@ -121,6 +122,20 @@ const Header = () => {
                 <Dropdown.Item onClick={() => handleNavigate("/app")}>
                   <i className="bi bi-house-door me-2" aria-hidden="true" />
                   {t("header.home")}
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleNavigate("/profile")}>
+                  <span className="d-flex align-items-center justify-content-between w-100">
+                    <span>
+                      <i className="bi bi-person-circle me-2" aria-hidden="true" />
+                      {t("header.profile")}
+                    </span>
+                    {requiresCbuUpdate ? (
+                      <i
+                        className="bi bi-exclamation-circle-fill text-warning"
+                        aria-label={t("profile.cbuPending")}
+                      />
+                    ) : null}
+                  </span>
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => handleNavigate("/answered-questions")}>
                   <i className="bi bi-journal-text me-2" aria-hidden="true" />

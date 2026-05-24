@@ -3,9 +3,12 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   AppProvider,
+  getUserCbu,
   isQuestionPackageExhausted,
+  mergeAuthUserProfile,
   resolveLanguage,
   resolveLocale,
+  userRequiresCbuUpdate,
   useAppContext,
 } from "../../helpers/ContextApi";
 import { get } from "../../helpers/FecthApi.jsx";
@@ -24,6 +27,7 @@ const ContextHarness = () => {
       <div data-testid="language">{context.language}</div>
       <div data-testid="is-authenticated">{String(context.isAuthenticated)}</div>
       <div data-testid="has-access">{String(context.hasSubscriptionAccess)}</div>
+      <div data-testid="requires-cbu-update">{String(context.requiresCbuUpdate)}</div>
       <div data-testid="has-package">{String(context.hasQuestionPackageAvailable)}</div>
       <div data-testid="institution">{context.selectedInstitution?.name ?? "-"}</div>
       <div data-testid="user-id">{String(context.getCurrentUserId() ?? "")}</div>
@@ -53,7 +57,12 @@ const ContextHarness = () => {
         type="button"
         onClick={() =>
           context.login(
-            { id: 7, institution_id: 11, nickname: "pedro" },
+            {
+              id: 7,
+              institution_id: 11,
+              nickname: "pedro",
+              cbu: "0070010800000001234565",
+            },
             "token-123",
             {
               questions_used: 2,
@@ -110,6 +119,19 @@ const ContextHarness = () => {
         onClick={() => context.login({ id: 8, nickname: "pedro-no-token" }, null, null)}
       >
         login-no-token
+      </button>
+      <button
+        type="button"
+        onClick={() =>
+          context.updateAuthUserProfile({
+            name: "Pedro Vieira",
+            email: "pedro@example.com",
+            nickname: "pedrov-updated",
+            cbu: "0070010800000001234565",
+          })
+        }
+      >
+        update-auth-user
       </button>
       <button
         type="button"
@@ -228,6 +250,7 @@ describe("AppProvider", () => {
 
     expect(screen.getByTestId("is-authenticated")).toHaveTextContent("true");
     expect(screen.getByTestId("has-access")).toHaveTextContent("true");
+    expect(screen.getByTestId("requires-cbu-update")).toHaveTextContent("false");
     expect(screen.getByTestId("has-package")).toHaveTextContent("true");
     expect(screen.getByTestId("user-id")).toHaveTextContent("7");
     expect(localStorage.getItem("token")).toBe("token-123");
@@ -274,6 +297,28 @@ describe("AppProvider", () => {
     expect(JSON.parse(localStorage.getItem("question_generation_usage"))).toMatchObject({
       questions_used: 3,
       questions_remaining: 0,
+    });
+  });
+
+  test("updates the stored auth user profile and clears the cbu pending flag", async () => {
+    localStorage.setItem(
+      "auth_user",
+      JSON.stringify({
+        id: 7,
+        nickname: "pedro",
+        cbu: "0000000000000000000000",
+      }),
+    );
+
+    renderHarness();
+
+    expect(screen.getByTestId("requires-cbu-update")).toHaveTextContent("true");
+    await userEvent.click(screen.getByRole("button", { name: "update-auth-user" }));
+
+    expect(screen.getByTestId("requires-cbu-update")).toHaveTextContent("false");
+    expect(JSON.parse(localStorage.getItem("auth_user"))).toMatchObject({
+      nickname: "pedrov-updated",
+      cbu: "0070010800000001234565",
     });
   });
 
@@ -461,6 +506,47 @@ describe("AppProvider", () => {
     expect(resolveLanguage("fr")).toBe("es");
     expect(resolveLocale("pt")).toBe("pt-BR");
     expect(resolveLocale("fr")).toBe("en-US");
+  });
+
+  test("detects placeholder cbu values from direct and nested auth users", () => {
+    expect(getUserCbu({ cbu: "0000000000000000000000" })).toBe(
+      "0000000000000000000000",
+    );
+    expect(
+      getUserCbu({ user: { cbu: "0000000000000000000000" } }),
+    ).toBe("0000000000000000000000");
+    expect(userRequiresCbuUpdate({ cbu: "0000000000000000000000" })).toBe(true);
+    expect(userRequiresCbuUpdate({ cbu: "0070010800000001234565" })).toBe(false);
+  });
+
+  test("merges profile data for flat and nested auth users", () => {
+    expect(
+      mergeAuthUserProfile(
+        { id: 1, nickname: "pedrov", cbu: "0000000000000000000000" },
+        { nickname: "pedrov-updated", cbu: "0070010800000001234565" },
+      ),
+    ).toMatchObject({
+      id: 1,
+      nickname: "pedrov-updated",
+      cbu: "0070010800000001234565",
+    });
+
+    expect(
+      mergeAuthUserProfile(
+        {
+          institution_id: 4,
+          user: { id: 1, nickname: "pedrov", cbu: "0000000000000000000000" },
+        },
+        { nickname: "pedrov-updated", cbu: "0070010800000001234565" },
+      ),
+    ).toMatchObject({
+      institution_id: 4,
+      user: {
+        id: 1,
+        nickname: "pedrov-updated",
+        cbu: "0070010800000001234565",
+      },
+    });
   });
 
   test("detects when a question package is exhausted", () => {

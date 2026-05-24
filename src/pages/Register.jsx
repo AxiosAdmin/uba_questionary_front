@@ -9,6 +9,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
+  const [cbu, setCbu] = useState("");
   const [password, setPassword] = useState("");
   const [passwordView, setPasswordView] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,6 +36,7 @@ const Register = () => {
         name,
         email,
         nickname,
+        cbu,
         password,
       });
       const userId = createUserResponse?.data?.id;
@@ -44,7 +46,6 @@ const Register = () => {
       }
 
       setSuccess(t("register.successRedirect"));
-
       const checkoutResponse = await post("stripe/generate", { user_id: userId });
 
       if (!checkoutResponse?.url_session) {
@@ -97,6 +98,20 @@ const Register = () => {
               onChange={(event) => setNickname(event.target.value)}
               required
             />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="registerCbu">
+            <Form.Label>{t("register.cbu")}</Form.Label>
+            <Form.Control
+              type="text"
+              value={cbu}
+              onChange={(event) => setCbu(event.target.value)}
+              placeholder={t("register.cbuPlaceholder")}
+              required
+            />
+            <Form.Text className="auth-helper-text">
+              {t("register.cbuHelp")}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="registerPassword">

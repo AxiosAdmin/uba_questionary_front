@@ -18,6 +18,7 @@ import LanguageSelector from "./Elements/LanguageSelector";
 import LandingPage from "./pages/LandingPage";
 import AnsweredQuestions from "./pages/AnsweredQuestions";
 import Feedback from "./pages/Feedback";
+import Profile from "./pages/Profile";
 
 function AppContent() {
   const {
@@ -118,6 +119,10 @@ function AppContent() {
             element={
               isAuthenticated ? <AnsweredQuestions /> : <Navigate to="/login" />
             }
+          />
+          <Route
+            path="/profile"
+            element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
           />
           <Route
             path="/feedback"

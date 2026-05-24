@@ -11,6 +11,8 @@ const SubjectSelection = () => {
     hasSubscriptionAccess,
     hasQuestionPackageAvailable,
     logout,
+    requiresCbuUpdate,
+    refreshSubscriptionAccess,
     selectedInstitution,
     setSelectedInstitution,
     t,
@@ -51,6 +53,12 @@ const SubjectSelection = () => {
   };
 
   const handleGenerateCheckout = async () => {
+    if (requiresCbuUpdate) {
+      setError(t("subjectSelection.checkoutBlockedByCbu"));
+      setInfoMessage("");
+      return;
+    }
+
     const userId = getCurrentUserId();
     if (!userId) {
       setError(t("subjectSelection.userNotIdentified"));
@@ -77,6 +85,23 @@ const SubjectSelection = () => {
       );
     } finally {
       setIsPreparingCheckout(false);
+    }
+  };
+
+  const handleRefreshAccess = async () => {
+    setError("");
+    setInfoMessage("");
+
+    try {
+      const hasAccess = await refreshSubscriptionAccess();
+      if (!hasAccess) {
+        setInfoMessage(t("subjectSelection.paymentPending"));
+      }
+    } catch (requestError) {
+      setError(
+        requestError.response?.data?.detail ||
+          t("subjectSelection.subscriptionStatusFailed"),
+      );
     }
   };
 
@@ -127,7 +152,7 @@ const SubjectSelection = () => {
                       <Button
                         className="w-100"
                         onClick={handleGenerateCheckout}
-                        disabled={isPreparingCheckout}
+                        disabled={isPreparingCheckout || requiresCbuUpdate}
                       >
                         {isPreparingCheckout ? (
                           <>
@@ -150,10 +175,28 @@ const SubjectSelection = () => {
                       <Card.Text className="text-secondary">
                         {t("subjectSelection.step2Description")}
                       </Card.Text>
+                      <Button variant="outline-secondary" className="w-100" onClick={handleRefreshAccess}>
+                        {t("subjectSelection.alreadyPaid")}
+                      </Button>
                     </Card.Body>
                   </Card>
                 </Col>
               </Row>
+
+              {requiresCbuUpdate ? (
+                <Alert variant="warning" className="mb-3">
+                  {t("subjectSelection.cbuUpdateRequired")}
+                  <div className="mt-3">
+                    <Button
+                      variant="outline-dark"
+                      size="sm"
+                      onClick={() => navigate("/profile")}
+                    >
+                      {t("subjectSelection.openProfile")}
+                    </Button>
+                  </div>
+                </Alert>
+              ) : null}
 
               {infoMessage ? (
                 <Alert variant="warning" className="mb-3">
@@ -208,7 +251,10 @@ const SubjectSelection = () => {
                 </div>
               </div>
 
-              <Button onClick={handleGenerateCheckout} disabled={isPreparingCheckout}>
+              <Button
+                onClick={handleGenerateCheckout}
+                disabled={isPreparingCheckout || requiresCbuUpdate}
+              >
                 {isPreparingCheckout ? (
                   <>
                     <Spinner size="sm" className="me-2" />
@@ -219,6 +265,21 @@ const SubjectSelection = () => {
                 )}
               </Button>
 
+              {requiresCbuUpdate ? (
+                <Alert variant="warning" className="mt-3 mb-0">
+                  {t("subjectSelection.cbuUpdateRequired")}
+                  <div className="mt-3">
+                    <Button
+                      variant="outline-dark"
+                      size="sm"
+                      onClick={() => navigate("/profile")}
+                    >
+                      {t("subjectSelection.openProfile")}
+                    </Button>
+                  </div>
+                </Alert>
+              ) : null}
+
               {error ? (
                 <Alert variant="danger" className="mt-3 mb-0">
                   {error}
@@ -228,6 +289,20 @@ const SubjectSelection = () => {
           </Card>
         ) : (
           <>
+            {requiresCbuUpdate ? (
+              <Alert variant="warning" className="mb-4">
+                {t("subjectSelection.cbuUpdateRequired")}
+                <div className="mt-3">
+                  <Button
+                    variant="outline-dark"
+                    size="sm"
+                    onClick={() => navigate("/profile")}
+                  >
+                    {t("subjectSelection.openProfile")}
+                  </Button>
+                </div>
+              </Alert>
+            ) : null}
             <h5>{t("subjectSelection.chooseSubject")}</h5>
             <Row className="g-3 justify-content-center">
               {subjects.map((subject, index) => (
