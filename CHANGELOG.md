@@ -1,3 +1,9 @@
+## v1.7.0
+
+- Included cupons to the application
+- Added CBU to the user profile
+- Created a profile page
+
 ## v1.6.0
 
 - Added biology questions page
