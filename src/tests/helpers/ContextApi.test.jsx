@@ -62,6 +62,7 @@ const ContextHarness = () => {
               institution_id: 11,
               nickname: "pedro",
               dni: "12345678",
+              stripe_customer_id: "cus_123",
             },
             "token-123",
             {
@@ -257,6 +258,7 @@ describe("AppProvider", () => {
     expect(JSON.parse(localStorage.getItem("auth_user"))).toMatchObject({
       id: 7,
       nickname: "pedro",
+      stripe_customer_id: "cus_123",
     });
 
     await userEvent.click(screen.getByRole("button", { name: "prime-question-state" }));

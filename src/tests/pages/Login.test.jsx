@@ -28,7 +28,7 @@ describe("Login page", () => {
     const login = jest.fn();
     useAppContext.mockReturnValue(createMockAppContext({ login }));
     post.mockResolvedValue({
-      user: { id: 1, nickname: "pedro" },
+      user: { id: 1, nickname: "pedro", stripe_customer_id: "cus_123" },
       token: "token-123",
       question_generation_usage: { questions_used: 1, questions_remaining: 9 },
     });
@@ -46,7 +46,7 @@ describe("Login page", () => {
       });
     });
     expect(login).toHaveBeenCalledWith(
-      { id: 1, nickname: "pedro" },
+      { id: 1, nickname: "pedro", stripe_customer_id: "cus_123" },
       "token-123",
       { questions_used: 1, questions_remaining: 9 },
     );
@@ -99,6 +99,7 @@ describe("Login page", () => {
           name: "Pedro Vieira",
           nickname: "pedro",
           dni: "00000000",
+          stripe_customer_id: "cus_nested",
         },
         institution: {
           id: 4,
@@ -125,6 +126,7 @@ describe("Login page", () => {
           user: expect.objectContaining({
             dni: "00000000",
             nickname: "pedro",
+            stripe_customer_id: "cus_nested",
           }),
         }),
         "token-123",

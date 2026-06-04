@@ -38,7 +38,7 @@ describe("Register page", () => {
 
   test("creates the account and redirects to checkout", async () => {
     post
-      .mockResolvedValueOnce({ data: { id: 99 } })
+      .mockResolvedValueOnce({ data: { id: 99, stripe_customer_id: "cus_123" } })
       .mockResolvedValueOnce({ url_session: "https://checkout.example.com/session" });
 
     render(<Register />);
