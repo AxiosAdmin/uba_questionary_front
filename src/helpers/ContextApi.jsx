@@ -59,6 +59,9 @@ export const MISSING_DNI_PLACEHOLDER = "00000000";
 
 export const getUserDni = (user) => user?.dni || user?.user?.dni || null;
 
+export const getAuthUserId = (user) =>
+  user?.user_id || user?.id || user?.user?.user_id || user?.user?.id || null;
+
 export const userRequiresDniUpdate = (user) =>
   getUserDni(user) === MISSING_DNI_PLACEHOLDER;
 
@@ -209,7 +212,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const getCurrentUserId = () => {
-    return authUser?.user_id || authUser?.id || null;
+    return getAuthUserId(authUser);
   };
 
   const setQuestionGenerationUsage = (usage) => {

@@ -88,7 +88,6 @@ const Question = () => {
       await post("question-answers", {
         answer: letter,
         question_id: questionData.id,
-        user_id: userId,
       });
       setSelectedAnswer(letter);
       setShowResult(true);

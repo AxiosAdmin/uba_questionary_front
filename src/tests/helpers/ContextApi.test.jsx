@@ -3,6 +3,7 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   AppProvider,
+  getAuthUserId,
   getUserDni,
   isQuestionPackageExhausted,
   mergeAuthUserProfile,
@@ -278,6 +279,24 @@ describe("AppProvider", () => {
     expect(localStorage.getItem("question_generation_usage")).toBeNull();
   });
 
+  test("reads the authenticated user id from nested login payloads", () => {
+    localStorage.setItem(
+      "auth_user",
+      JSON.stringify({
+        institution_id: 11,
+        user: {
+          id: 77,
+          nickname: "pedro",
+        },
+      }),
+    );
+
+    renderHarness();
+
+    expect(screen.getByTestId("user-id")).toHaveTextContent("77");
+    expect(screen.getByTestId("is-authenticated")).toHaveTextContent("true");
+  });
+
   test("does not persist a token when login is called without one", async () => {
     renderHarness();
 
@@ -519,6 +538,18 @@ describe("AppProvider", () => {
     ).toBe("00000000");
     expect(userRequiresDniUpdate({ dni: "00000000" })).toBe(true);
     expect(userRequiresDniUpdate({ dni: "12345678" })).toBe(false);
+  });
+
+  test("resolves the authenticated user id for flat and nested auth users", () => {
+    expect(getAuthUserId(null)).toBeNull();
+    expect(getAuthUserId({ user_id: "user-1" })).toBe("user-1");
+    expect(getAuthUserId({ id: 7 })).toBe(7);
+    expect(
+      getAuthUserId({
+        institution_id: 4,
+        user: { id: "nested-user-9" },
+      }),
+    ).toBe("nested-user-9");
   });
 
   test("merges profile data for flat and nested auth users", () => {

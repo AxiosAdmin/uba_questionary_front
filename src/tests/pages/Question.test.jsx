@@ -77,7 +77,6 @@ describe("Question page", () => {
       expect(post).toHaveBeenCalledWith("question-answers", {
         answer: "B",
         question_id: 101,
-        user_id: 77,
       });
     });
     expect(setSelectedAnswer).toHaveBeenCalledWith("B");
