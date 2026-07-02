@@ -63,8 +63,12 @@ describe("Profile page", () => {
     const dniInput = await screen.findByLabelText("DNI");
     expect(dniInput).toHaveValue("00000000");
 
+    await userEvent.clear(screen.getByLabelText("Email"));
+    await userEvent.type(screen.getByLabelText("Email"), " pedro @example.com ");
+    await userEvent.clear(screen.getByLabelText("Nickname"));
+    await userEvent.type(screen.getByLabelText("Nickname"), " pe drov ");
     await userEvent.clear(dniInput);
-    await userEvent.type(dniInput, "12345678");
+    await userEvent.type(dniInput, " 12 345 678 ");
     await userEvent.click(screen.getByRole("button", { name: "Update profile" }));
 
     await waitFor(() => {

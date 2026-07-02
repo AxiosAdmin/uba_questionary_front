@@ -13,7 +13,7 @@ export const resolveLanguage = (language) =>
   SUPPORTED_LANGUAGES.includes(language) ? language : DEFAULT_LANGUAGE;
 
 export const resolveLocale = (language) =>
-  LANGUAGE_LOCALES[language] || LANGUAGE_LOCALES.en;
+  LANGUAGE_LOCALES[resolveLanguage(language)] || LANGUAGE_LOCALES[DEFAULT_LANGUAGE];
 
 const getStoredAuthUser = () => {
   try {
@@ -42,16 +42,6 @@ const getStoredQuestionGenerationUsage = () => {
   } catch {
     localStorage.removeItem("question_generation_usage");
     return null;
-  }
-};
-
-const getStoredLanguage = () => {
-  try {
-    const storedLanguage = localStorage.getItem("language");
-    return resolveLanguage(storedLanguage);
-  } catch {
-    localStorage.removeItem("language");
-    return DEFAULT_LANGUAGE;
   }
 };
 
@@ -136,7 +126,7 @@ export const AppProvider = ({ children }) => {
   const [questionGenerationUsage, setQuestionGenerationUsageState] = useState(
     getStoredQuestionGenerationUsage,
   );
-  const [language, setLanguageState] = useState(getStoredLanguage);
+  const [language] = useState(DEFAULT_LANGUAGE);
   const [hasSubscriptionAccess, setHasSubscriptionAccess] = useState(() =>
     userHasSubscriptionAccess(getStoredAuthUser()),
   );
@@ -145,27 +135,19 @@ export const AppProvider = ({ children }) => {
     authUser?.global_role === "Admin" ||
     !isQuestionPackageExhausted(questionGenerationUsage);
 
-  const setLanguage = (nextLanguage) => {
-    const resolvedLanguage = resolveLanguage(nextLanguage);
-    localStorage.setItem("language", resolvedLanguage);
-    setLanguageState(resolvedLanguage);
-  };
+  const setLanguage = () => {};
 
   const t = useCallback((key, variables = {}) => {
-    const template =
-      translations[language]?.[key] ?? translations.en[key] ?? key;
+    const template = translations[DEFAULT_LANGUAGE]?.[key] ?? key;
 
     return Object.entries(variables).reduce(
       (message, [variableKey, variableValue]) =>
         message.replaceAll(`{${variableKey}}`, String(variableValue)),
       template,
     );
-  }, [language]);
+  }, []);
 
-  const getLocale = useCallback(
-    () => resolveLocale(language),
-    [language],
-  );
+  const getLocale = useCallback(() => resolveLocale(language), [language]);
 
   const formatDate = (value, options) => {
     if (!value) {

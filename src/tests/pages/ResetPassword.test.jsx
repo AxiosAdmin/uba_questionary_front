@@ -37,8 +37,8 @@ describe("ResetPassword page", () => {
 
     render(<ResetPassword />);
 
-    await userEvent.type(screen.getByLabelText("New password"), "NovaSenha123!");
-    await userEvent.type(screen.getByLabelText("Confirm new password"), "NovaSenha123!");
+    await userEvent.type(screen.getByLabelText("New password"), " Nova Senha123! ");
+    await userEvent.type(screen.getByLabelText("Confirm new password"), " Nova Senha123! ");
     await userEvent.click(screen.getByRole("button", { name: "Update password" }));
 
     await waitFor(() => {

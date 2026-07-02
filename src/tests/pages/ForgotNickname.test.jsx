@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ForgotPassword from "../../pages/ForgotPassword";
+import ForgotNickname from "../../pages/ForgotNickname";
 import { useAppContext } from "../../helpers/ContextApi";
 import { post } from "../../helpers/FecthApi.jsx";
 import { createMockAppContext } from "../utils/mockAppContext";
@@ -19,7 +19,7 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }), { virtual: true });
 
-describe("ForgotPassword page", () => {
+describe("ForgotNickname page", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -27,22 +27,22 @@ describe("ForgotPassword page", () => {
   test("submits the email and shows the API success message", async () => {
     useAppContext.mockReturnValue(createMockAppContext());
     post.mockResolvedValue({
-      message: "If the email exists, password reset instructions have been generated.",
+      message: "If the email exists, nickname recovery instructions have been generated.",
     });
 
-    render(<ForgotPassword />);
+    render(<ForgotNickname />);
 
     await userEvent.type(screen.getByLabelText("Email"), " pedro @example.com ");
-    await userEvent.click(screen.getByRole("button", { name: "Send reset link" }));
+    await userEvent.click(screen.getByRole("button", { name: "Send recovery link" }));
 
     await waitFor(() => {
-      expect(post).toHaveBeenCalledWith("forgot-password", {
+      expect(post).toHaveBeenCalledWith("forgot-nickname", {
         email: "pedro@example.com",
       });
     });
     expect(
       await screen.findByText(
-        "If the email exists, password reset instructions have been generated.",
+        "If the email exists, nickname recovery instructions have been generated.",
       ),
     ).toBeInTheDocument();
   });
@@ -52,10 +52,10 @@ describe("ForgotPassword page", () => {
     useAppContext.mockReturnValue(createMockAppContext());
     post.mockRejectedValue({ response: { data: { detail: "Unable to send email" } } });
 
-    render(<ForgotPassword />);
+    render(<ForgotNickname />);
 
     await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
-    await userEvent.click(screen.getByRole("button", { name: "Send reset link" }));
+    await userEvent.click(screen.getByRole("button", { name: "Send recovery link" }));
 
     expect(await screen.findByText("Unable to send email")).toBeInTheDocument();
     expect(consoleSpy).toHaveBeenCalled();

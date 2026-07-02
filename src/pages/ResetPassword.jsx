@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppContext } from "../helpers/ContextApi";
 import { post } from "../helpers/FecthApi";
 import { getPasswordValidationMessage } from "../helpers/passwordValidation";
+import { removeAllSpaces } from "../helpers/userInputSanitizer";
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -40,6 +41,9 @@ const ResetPassword = () => {
       return;
     }
 
+    const sanitizedNewPassword = removeAllSpaces(newPassword);
+    const sanitizedConfirmPassword = removeAllSpaces(confirmPassword);
+
     if (newPasswordValidationMessage) {
       setError(newPasswordValidationMessage);
       return;
@@ -50,7 +54,7 @@ const ResetPassword = () => {
       return;
     }
 
-    if (newPassword !== confirmPassword) {
+    if (sanitizedNewPassword !== sanitizedConfirmPassword) {
       setError(t("resetPassword.passwordMismatch"));
       return;
     }
@@ -60,7 +64,7 @@ const ResetPassword = () => {
     try {
       const response = await post("reset-password", {
         token,
-        new_password: newPassword,
+        new_password: sanitizedNewPassword,
       });
       setSuccessMessage(response.message || t("resetPassword.success"));
       setNewPassword("");
@@ -86,7 +90,7 @@ const ResetPassword = () => {
               type={showPasswords ? "text" : "password"}
               value={newPassword}
               onChange={(event) => {
-                setNewPassword(event.target.value);
+                setNewPassword(removeAllSpaces(event.target.value));
                 setError("");
               }}
               required
@@ -107,7 +111,7 @@ const ResetPassword = () => {
               type={showPasswords ? "text" : "password"}
               value={confirmPassword}
               onChange={(event) => {
-                setConfirmPassword(event.target.value);
+                setConfirmPassword(removeAllSpaces(event.target.value));
                 setError("");
               }}
               required

@@ -44,10 +44,10 @@ describe("Register page", () => {
     render(<Register />);
 
     await userEvent.type(screen.getByLabelText("Name"), "Pedro");
-    await userEvent.type(screen.getByLabelText("Email"), "pedro@example.com");
-    await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("DNI"), "12345678");
-    await userEvent.type(screen.getByLabelText("Password"), "Secret123!");
+    await userEvent.type(screen.getByLabelText("Email"), " pedro @example.com ");
+    await userEvent.type(screen.getByLabelText("Nickname"), " pe dro ");
+    await userEvent.type(screen.getByLabelText("DNI"), " 12 345 678 ");
+    await userEvent.type(screen.getByLabelText("Password"), " Secret 123! ");
     await userEvent.click(screen.getByRole("button", { name: "Register and buy package" }));
 
     await waitFor(() => {

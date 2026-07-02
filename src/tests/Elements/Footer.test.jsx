@@ -19,7 +19,7 @@ describe("Footer", () => {
       screen.getByRole("link", { name: "soporte@axiosacademia.com" }),
     ).toHaveAttribute("href", "mailto:soporte@axiosacademia.com");
     expect(
-      screen.getByRole("link", { name: "Instagram Axios Academy" }),
+      screen.getByRole("link", { name: "Instagram de Axios Academia" }),
     ).toHaveAttribute("href", "https://www.instagram.com/axios.academy/");
   });
 });

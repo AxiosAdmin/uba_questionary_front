@@ -15,14 +15,11 @@ const Header = () => {
     logout,
     questionGenerationUsage,
     requiresDniUpdate,
-    language,
-    setLanguage,
     t,
   } = useAppContext();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLimitsMenuOpen, setIsLimitsMenuOpen] = useState(false);
-  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(getIsMobileViewport);
 
   useEffect(() => {
@@ -58,7 +55,6 @@ const Header = () => {
   const closeMenus = () => {
     setIsMenuOpen(false);
     setIsLimitsMenuOpen(false);
-    setIsLanguageMenuOpen(false);
   };
 
   const handleNavigate = (path) => {
@@ -70,11 +66,6 @@ const Header = () => {
     closeMenus();
     logout();
     navigate("/login");
-  };
-
-  const handleLanguageSelect = (nextLanguage) => {
-    setLanguage(nextLanguage);
-    closeMenus();
   };
 
   return (
@@ -102,7 +93,6 @@ const Header = () => {
                 setIsMenuOpen(Boolean(nextShow));
                 if (!nextShow) {
                   setIsLimitsMenuOpen(false);
-                  setIsLanguageMenuOpen(false);
                 }
               }}
             >
@@ -150,7 +140,6 @@ const Header = () => {
                   className="dropdown-item header-submenu-toggle"
                   onClick={() => {
                     setIsLimitsMenuOpen(!isLimitsMenuOpen);
-                    setIsLanguageMenuOpen(false);
                   }}
                 >
                   <span>
@@ -186,56 +175,6 @@ const Header = () => {
                           : t("header.limitsUnavailableValue")}
                       </span>
                     </div>
-                  </div>
-                ) : null}
-                <button
-                  type="button"
-                  className="dropdown-item header-submenu-toggle"
-                  onClick={() => {
-                    setIsLanguageMenuOpen(!isLanguageMenuOpen);
-                    setIsLimitsMenuOpen(false);
-                  }}
-                >
-                  <span>
-                    <i className="bi bi-translate me-2" aria-hidden="true" />
-                    {t("header.language")}
-                  </span>
-                  <i
-                    className={`bi ${
-                      isLanguageMenuOpen ? "bi-chevron-up" : "bi-chevron-down"
-                    }`}
-                    aria-hidden="true"
-                  />
-                </button>
-                {isLanguageMenuOpen ? (
-                  <div className="header-submenu">
-                    <button
-                      type="button"
-                      className={`header-submenu-item${
-                        language === "es" ? " active" : ""
-                      }`}
-                      onClick={() => handleLanguageSelect("es")}
-                    >
-                      {t("language.option.es")}
-                    </button>
-                    <button
-                      type="button"
-                      className={`header-submenu-item${
-                        language === "en" ? " active" : ""
-                      }`}
-                      onClick={() => handleLanguageSelect("en")}
-                    >
-                      {t("language.option.en")}
-                    </button>
-                    <button
-                      type="button"
-                      className={`header-submenu-item${
-                        language === "pt" ? " active" : ""
-                      }`}
-                      onClick={() => handleLanguageSelect("pt")}
-                    >
-                      {t("language.option.pt")}
-                    </button>
                   </div>
                 ) : null}
                 <Dropdown.Item onClick={handleLogout} className="text-danger">

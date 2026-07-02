@@ -3,6 +3,7 @@ import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { get, put } from "../helpers/FecthApi";
 import { useAppContext } from "../helpers/ContextApi";
+import { removeAllSpaces } from "../helpers/userInputSanitizer";
 
 const Profile = () => {
   const { requiresDniUpdate, t, updateAuthUserProfile } = useAppContext();
@@ -33,9 +34,9 @@ const Profile = () => {
 
         setFormData({
           name: user.name || "",
-          email: user.email || "",
-          nickname: user.nickname || "",
-          dni: user.dni || "",
+          email: removeAllSpaces(user.email || ""),
+          nickname: removeAllSpaces(user.nickname || ""),
+          dni: removeAllSpaces(user.dni || ""),
         });
       } catch (requestError) {
         setError(
@@ -52,9 +53,12 @@ const Profile = () => {
   }, [t]);
 
   const handleChange = (field) => (event) => {
+    const nextValue = ["email", "nickname", "dni"].includes(field)
+      ? removeAllSpaces(event.target.value)
+      : event.target.value;
     setFormData((currentFormData) => ({
       ...currentFormData,
-      [field]: event.target.value,
+      [field]: nextValue,
     }));
     setError("");
     setSuccessMessage("");
@@ -67,7 +71,13 @@ const Profile = () => {
     setIsSaving(true);
 
     try {
-      const response = await put("users/me", formData);
+      const sanitizedFormData = {
+        ...formData,
+        email: removeAllSpaces(formData.email),
+        nickname: removeAllSpaces(formData.nickname),
+        dni: removeAllSpaces(formData.dni),
+      };
+      const response = await put("users/me", sanitizedFormData);
       const user = response?.data;
 
       if (!user) {
@@ -76,9 +86,9 @@ const Profile = () => {
 
       setFormData({
         name: user.name || "",
-        email: user.email || "",
-        nickname: user.nickname || "",
-        dni: user.dni || "",
+        email: removeAllSpaces(user.email || ""),
+        nickname: removeAllSpaces(user.nickname || ""),
+        dni: removeAllSpaces(user.dni || ""),
       });
       updateAuthUserProfile(user);
       setSuccessMessage(t("profile.success"));

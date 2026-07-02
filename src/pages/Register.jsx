@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { post } from "../helpers/FecthApi";
 import { useAppContext } from "../helpers/ContextApi";
 import { getPasswordValidationMessage } from "../helpers/passwordValidation";
+import { removeAllSpaces } from "../helpers/userInputSanitizer";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -32,12 +33,16 @@ const Register = () => {
     setIsSubmitting(true);
 
     try {
+      const sanitizedEmail = removeAllSpaces(email);
+      const sanitizedNickname = removeAllSpaces(nickname);
+      const sanitizedDni = removeAllSpaces(dni);
+      const sanitizedPassword = removeAllSpaces(password);
       const createUserResponse = await post("users", {
         name,
-        email,
-        nickname,
-        dni,
-        password,
+        email: sanitizedEmail,
+        nickname: sanitizedNickname,
+        dni: sanitizedDni,
+        password: sanitizedPassword,
       });
       const userId = createUserResponse?.data?.id;
 
@@ -85,7 +90,7 @@ const Register = () => {
             <Form.Control
               type="email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => setEmail(removeAllSpaces(event.target.value))}
               required
             />
           </Form.Group>
@@ -95,7 +100,7 @@ const Register = () => {
             <Form.Control
               type="text"
               value={nickname}
-              onChange={(event) => setNickname(event.target.value)}
+              onChange={(event) => setNickname(removeAllSpaces(event.target.value))}
               required
             />
           </Form.Group>
@@ -105,7 +110,7 @@ const Register = () => {
             <Form.Control
               type="text"
               value={dni}
-              onChange={(event) => setDni(event.target.value)}
+              onChange={(event) => setDni(removeAllSpaces(event.target.value))}
               placeholder={t("register.dniPlaceholder")}
               required
             />
@@ -120,7 +125,7 @@ const Register = () => {
               type={passwordView ? "text" : "password"}
               value={password}
               onChange={(event) => {
-                setPassword(event.target.value);
+                setPassword(removeAllSpaces(event.target.value));
                 setError("");
               }}
               required

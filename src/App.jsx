@@ -9,12 +9,13 @@ import BiologyQuestionGenerator from "./pages/BiologyQuestionGenerator";
 import Question from "./pages/Question";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import ForgotNickname from "./pages/ForgotNickname";
 import Register from "./pages/Register";
+import RecoverNickname from "./pages/RecoverNickname";
 import ResetPassword from "./pages/ResetPassword";
 import SubjectSelection from "./pages/SubjectSelection";
 import Header from "./Elements/Header";
 import Footer from "./Elements/Footer";
-import LanguageSelector from "./Elements/LanguageSelector";
 import LandingPage from "./pages/LandingPage";
 import AnsweredQuestions from "./pages/AnsweredQuestions";
 import Feedback from "./pages/Feedback";
@@ -48,11 +49,6 @@ function AppContent() {
 
   return (
     <>
-      {!isAuthenticated ? (
-        <div className="app-toolbar">
-          <LanguageSelector />
-        </div>
-      ) : null}
       <Header />
       <main className="App-main">
         <Routes>
@@ -67,6 +63,8 @@ function AppContent() {
             element={!isAuthenticated ? <Login /> : <Navigate to="/app" />}
           />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-nickname" element={<ForgotNickname />} />
+          <Route path="/recover-nickname" element={<RecoverNickname />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/register"

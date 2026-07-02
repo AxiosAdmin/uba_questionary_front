@@ -3,6 +3,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../helpers/ContextApi";
 import { post } from "../helpers/FecthApi";
+import { removeAllSpaces } from "../helpers/userInputSanitizer";
 
 const Login = () => {
   const [nickname, setNickname] = useState("");
@@ -19,7 +20,10 @@ const Login = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await post("login", { nickname, password });
+      const response = await post("login", {
+        nickname: removeAllSpaces(nickname),
+        password: removeAllSpaces(password),
+      });
 
       if (response.user && response.token) {
         login(
@@ -59,7 +63,7 @@ const Login = () => {
             <Form.Control
               type="text"
               value={nickname}
-              onChange={(event) => setNickname(event.target.value)}
+              onChange={(event) => setNickname(removeAllSpaces(event.target.value))}
               required
             />
           </Form.Group>
@@ -69,7 +73,7 @@ const Login = () => {
             <Form.Control
               type={passwordView ? "text" : "password"}
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) => setPassword(removeAllSpaces(event.target.value))}
               required
             />
             <Button
@@ -94,6 +98,14 @@ const Login = () => {
             onClick={() => navigate("/forgot-password")}
           >
             {t("login.forgotPassword")}
+          </Button>
+          <Button
+            type="button"
+            variant="link"
+            className="w-100 mt-2 auth-link-button"
+            onClick={() => navigate("/forgot-nickname")}
+          >
+            {t("login.forgotNickname")}
           </Button>
           <Button
             type="button"

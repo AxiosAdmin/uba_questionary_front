@@ -3,6 +3,8 @@ import axios from "axios";
 const PUBLIC_ENDPOINTS = new Set([
   "login",
   "forgot-password",
+  "forgot-nickname",
+  "recover-nickname",
   "reset-password",
 ]);
 

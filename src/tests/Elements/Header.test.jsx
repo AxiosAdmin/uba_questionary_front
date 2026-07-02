@@ -93,12 +93,10 @@ describe("Header", () => {
 
   test("handles navigation/logout for authenticated users", async () => {
     const logout = jest.fn();
-    const setLanguage = jest.fn();
     useAppContext.mockReturnValue(
       createMockAppContext({
         isAuthenticated: true,
         logout,
-        setLanguage,
         questionGenerationUsage: {
           questions_used: 4,
           questions_limit: 10,
@@ -127,6 +125,9 @@ describe("Header", () => {
     await userEvent.click(screen.getByRole("button", { name: "Menu" }));
     await waitFor(() => expect(screen.getByText("Feedback")).toBeInTheDocument());
     await userEvent.click(screen.getByText("Feedback"));
+    await waitFor(() => {
+      expect(screen.queryByText("Feedback")).not.toBeInTheDocument();
+    });
 
     await userEvent.click(screen.getByRole("button", { name: "Menu" }));
     await waitFor(() => expect(screen.getByText("Limits")).toBeInTheDocument());
@@ -137,18 +138,13 @@ describe("Header", () => {
     expect(screen.getByText("10")).toBeInTheDocument();
     expect(screen.getByText("6")).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText("Language"));
-    await waitFor(() => expect(screen.getByRole("button", { name: /Portug/i })).toBeInTheDocument());
-    await userEvent.click(screen.getByRole("button", { name: /Portug/i }));
-
-    await userEvent.click(screen.getByRole("button", { name: "Menu" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Log out" })).toBeInTheDocument());
     await userEvent.click(screen.getByRole("button", { name: "Log out" }));
 
     expect(mockNavigate).toHaveBeenNthCalledWith(1, "/app");
     expect(mockNavigate).toHaveBeenNthCalledWith(2, "/profile");
     expect(mockNavigate).toHaveBeenNthCalledWith(3, "/answered-questions");
     expect(mockNavigate).toHaveBeenNthCalledWith(4, "/feedback");
-    expect(setLanguage).toHaveBeenCalledWith("pt");
     expect(logout).toHaveBeenCalled();
     expect(mockNavigate).toHaveBeenNthCalledWith(5, "/login");
   });
@@ -214,72 +210,6 @@ describe("Header", () => {
 
     expect(await screen.findByText("Used from package")).toBeInTheDocument();
     expect(screen.getAllByText("Not available")).toHaveLength(2);
-  });
-
-  test("marks the current language as active and allows selecting Spanish from the submenu", async () => {
-    const setLanguage = jest.fn();
-    useAppContext.mockReturnValue(
-      createMockAppContext({
-        isAuthenticated: true,
-        language: "en",
-        setLanguage,
-      }),
-    );
-
-    render(<Header />);
-
-    await userEvent.click(screen.getByRole("button", { name: "Menu" }));
-    await userEvent.click(screen.getByText("Language"));
-
-    const englishButton = await screen.findByRole("button", { name: "English" });
-    const spanishButton = screen.getByRole("button", { name: /Espa/i });
-    const portugueseButton = screen.getByRole("button", { name: /Portug/i });
-
-    expect(englishButton).toHaveClass("active");
-    expect(spanishButton).not.toHaveClass("active");
-    expect(portugueseButton).not.toHaveClass("active");
-
-    await userEvent.click(spanishButton);
-
-    expect(setLanguage).toHaveBeenCalledWith("es");
-  });
-
-  test("marks Spanish as active, allows selecting English, and closes the limits submenu when language opens", async () => {
-    const setLanguage = jest.fn();
-    useAppContext.mockReturnValue(
-      createMockAppContext({
-        isAuthenticated: true,
-        language: "es",
-        setLanguage,
-        questionGenerationUsage: {
-          questions_used: 4,
-          questions_limit: 10,
-          questions_remaining: 6,
-        },
-      }),
-    );
-
-    render(<Header />);
-
-    await userEvent.click(screen.getByRole("button", { name: "Menu" }));
-    await userEvent.click(screen.getByText("Limites"));
-    expect(await screen.findByText("Usadas del paquete")).toBeInTheDocument();
-
-    await userEvent.click(screen.getByText("Idioma"));
-
-    await waitFor(() => {
-      expect(screen.queryByText("Usadas del paquete")).not.toBeInTheDocument();
-    });
-
-    const spanishButton = await screen.findByRole("button", { name: /Espa/i });
-    const englishButton = screen.getByRole("button", { name: "English" });
-
-    expect(spanishButton).toHaveClass("active");
-    expect(englishButton).not.toHaveClass("active");
-
-    await userEvent.click(englishButton);
-
-    expect(setLanguage).toHaveBeenCalledWith("en");
   });
 
   test("updates the logo for mobile view when matchMedia change events fire", async () => {

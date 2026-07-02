@@ -127,7 +127,7 @@ describe("BiologyQuestionGenerator page", () => {
     });
     expect(context.resetQuestionState).toHaveBeenCalledTimes(2);
     expect(context.resetQuestionData).toHaveBeenCalledTimes(2);
-    expect(screen.getByText("Choose your biology topic")).toBeInTheDocument();
+    expect(screen.getByText("Choose your topic")).toBeInTheDocument();
   });
 
   test("does not allow requesting the next question without a selected topic", () => {

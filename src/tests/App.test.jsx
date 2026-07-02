@@ -57,7 +57,9 @@ jest.mock("react-router-dom", () => {
 jest.mock("../pages/LandingPage", () => () => <div>landing-page</div>);
 jest.mock("../pages/Login", () => () => <div>login-page</div>);
 jest.mock("../pages/ForgotPassword", () => () => <div>forgot-password-page</div>);
+jest.mock("../pages/ForgotNickname", () => () => <div>forgot-nickname-page</div>);
 jest.mock("../pages/Register", () => () => <div>register-page</div>);
+jest.mock("../pages/RecoverNickname", () => () => <div>recover-nickname-page</div>);
 jest.mock("../pages/ResetPassword", () => () => <div>reset-password-page</div>);
 jest.mock("../pages/SubjectSelection", () => () => <div>subject-selection-page</div>);
 jest.mock("../pages/AnatomyQuestionGenerator", () => () => <div>anatomy-generator-page</div>);
@@ -68,7 +70,6 @@ jest.mock("../pages/Feedback", () => () => <div>feedback-page</div>);
 jest.mock("../pages/Profile", () => () => <div>profile-page</div>);
 jest.mock("../Elements/Header", () => () => <div>header</div>);
 jest.mock("../Elements/Footer", () => () => <div>footer</div>);
-jest.mock("../Elements/LanguageSelector", () => () => <div>language-selector</div>);
 
 const renderAppAt = (route) =>
   render(
@@ -173,6 +174,18 @@ describe("App routes", () => {
     renderAppAt("/forgot-password");
 
     expect(screen.getByText("forgot-password-page")).toBeInTheDocument();
+  });
+
+  test("renders forgot-nickname for public access", () => {
+    renderAppAt("/forgot-nickname");
+
+    expect(screen.getByText("forgot-nickname-page")).toBeInTheDocument();
+  });
+
+  test("renders recover-nickname for public access", () => {
+    renderAppAt("/recover-nickname");
+
+    expect(screen.getByText("recover-nickname-page")).toBeInTheDocument();
   });
 
   test("renders reset-password for public access", () => {

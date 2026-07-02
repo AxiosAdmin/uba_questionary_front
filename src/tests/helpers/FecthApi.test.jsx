@@ -111,7 +111,7 @@ describe("FecthApi", () => {
     });
   });
 
-  test("omits auth headers on forgot-password and reset-password", async () => {
+  test("omits auth headers on public recovery endpoints", async () => {
     localStorage.setItem("auth_user", JSON.stringify({ id: 3, institution_id: 8 }));
     localStorage.setItem("selected_institution", JSON.stringify({ id: 5, name: "UBA" }));
     localStorage.setItem("token", "token-123");
@@ -120,9 +120,13 @@ describe("FecthApi", () => {
     axios.mockResolvedValue({ data: { message: "ok" } });
 
     await post("forgot-password", { email: "pedro@example.com" });
+    await post("forgot-nickname", { email: "pedro@example.com" });
     await post("reset-password", {
       token: "reset-token",
       new_password: "NovaSenha123!",
+    });
+    await post("recover-nickname", {
+      token: "recovery-token",
     });
 
     expect(axios).toHaveBeenNthCalledWith(1, {
@@ -137,6 +141,16 @@ describe("FecthApi", () => {
     });
     expect(axios).toHaveBeenNthCalledWith(2, {
       method: "POST",
+      url: "https://api.example.com/forgot-nickname",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: "pedro@example.com",
+      },
+    });
+    expect(axios).toHaveBeenNthCalledWith(3, {
+      method: "POST",
       url: "https://api.example.com/reset-password",
       headers: {
         "Content-Type": "application/json",
@@ -144,6 +158,16 @@ describe("FecthApi", () => {
       data: {
         token: "reset-token",
         new_password: "NovaSenha123!",
+      },
+    });
+    expect(axios).toHaveBeenNthCalledWith(4, {
+      method: "POST",
+      url: "https://api.example.com/recover-nickname",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        token: "recovery-token",
       },
     });
   });

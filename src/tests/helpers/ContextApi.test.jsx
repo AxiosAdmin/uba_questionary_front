@@ -164,10 +164,6 @@ describe("AppProvider", () => {
     "{date}",
     "10/05/2026",
   );
-  const usageResetDatePt = translations.pt["header.usageResetDate"].replace(
-    "{date}",
-    "10/05/2026",
-  );
 
   beforeEach(() => {
     localStorage.clear();
@@ -175,8 +171,8 @@ describe("AppProvider", () => {
     jest.restoreAllMocks();
   });
 
-  test("loads the default language, translates keys and persists language changes", async () => {
-    localStorage.setItem("language", "fr");
+  test("always initializes in Spanish and ignores persisted language values", async () => {
+    localStorage.setItem("language", "pt");
 
     renderHarness();
 
@@ -190,17 +186,9 @@ describe("AppProvider", () => {
 
     await userEvent.click(screen.getByRole("button", { name: "set-language" }));
 
-    expect(screen.getByTestId("language")).toHaveTextContent("pt");
+    expect(screen.getByTestId("language")).toHaveTextContent("es");
     expect(localStorage.getItem("language")).toBe("pt");
-    expect(screen.getByTestId("translated")).toHaveTextContent(usageResetDatePt);
-  });
-
-  test("initializes with a supported persisted language", () => {
-    localStorage.setItem("language", "en");
-
-    renderHarness();
-
-    expect(screen.getByTestId("language")).toHaveTextContent("en");
+    expect(screen.getByTestId("translated")).toHaveTextContent(usageResetDateEs);
   });
 
   test("falls back cleanly when persisted storage contains invalid json", () => {
@@ -218,31 +206,13 @@ describe("AppProvider", () => {
     expect(localStorage.getItem("question_generation_usage")).toBeNull();
   });
 
-  test("falls back to the default language when reading language from storage throws", () => {
-    const getItemSpy = jest.spyOn(Storage.prototype, "getItem");
-    const removeItemSpy = jest.spyOn(Storage.prototype, "removeItem");
-
-    getItemSpy.mockImplementation((key) => {
-      if (key === "language") {
-        throw new Error("storage blocked");
-      }
-
-      return null;
-    });
-
-    renderHarness();
-
-    expect(screen.getByTestId("language")).toHaveTextContent("es");
-    expect(removeItemSpy).toHaveBeenCalledWith("language");
-  });
-
-  test("falls back to the default language when setting an unsupported language", async () => {
+  test("keeps Spanish selected when setLanguage is called with an unsupported value", async () => {
     renderHarness();
 
     await userEvent.click(screen.getByRole("button", { name: "set-invalid-language" }));
 
     expect(screen.getByTestId("language")).toHaveTextContent("es");
-    expect(localStorage.getItem("language")).toBe("es");
+    expect(localStorage.getItem("language")).toBeNull();
   });
 
   test("persists login data and fully resets the app state on logout", async () => {
@@ -522,11 +492,13 @@ describe("AppProvider", () => {
     );
   });
 
-  test("exposes pure language and locale resolvers for fallback branches", () => {
-    expect(resolveLanguage("pt")).toBe("pt");
+  test("exposes pure language and locale resolvers pinned to Spanish", () => {
+    expect(resolveLanguage("es")).toBe("es");
+    expect(resolveLanguage("pt")).toBe("es");
     expect(resolveLanguage("fr")).toBe("es");
-    expect(resolveLocale("pt")).toBe("pt-BR");
-    expect(resolveLocale("fr")).toBe("en-US");
+    expect(resolveLocale("es")).toBe("es-AR");
+    expect(resolveLocale("pt")).toBe("es-AR");
+    expect(resolveLocale("fr")).toBe("es-AR");
   });
 
   test("detects placeholder dni values from direct and nested auth users", () => {

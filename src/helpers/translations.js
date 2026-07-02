@@ -1,11 +1,9 @@
 export const DEFAULT_LANGUAGE = "es";
 
-export const SUPPORTED_LANGUAGES = ["en", "es", "pt"];
+export const SUPPORTED_LANGUAGES = ["es"];
 
 export const LANGUAGE_LOCALES = {
-  en: "en-US",
   es: "es-AR",
-  pt: "pt-BR",
 };
 
 export const translations = {
@@ -70,6 +68,7 @@ export const translations = {
     "login.signingIn": "Signing in...",
     "login.signIn": "Sign in",
     "login.forgotPassword": "Forgot password?",
+    "login.forgotNickname": "Forgot nickname?",
     "login.createAccount": "Create account",
     "password.requirements":
       "Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.",
@@ -86,6 +85,18 @@ export const translations = {
       "Unable to start password recovery right now.",
     "forgotPassword.backToLogin": "Back to login",
 
+    "forgotNickname.title": "Forgot your nickname?",
+    "forgotNickname.description":
+      "Enter the email linked to your account and we will send you a link to recover your nickname.",
+    "forgotNickname.email": "Email",
+    "forgotNickname.submit": "Send recovery link",
+    "forgotNickname.submitting": "Sending...",
+    "forgotNickname.success":
+      "If the email exists, nickname recovery instructions have been generated.",
+    "forgotNickname.failed":
+      "Unable to start nickname recovery right now.",
+    "forgotNickname.backToLogin": "Back to login",
+
     "resetPassword.title": "Reset password",
     "resetPassword.description":
       "Choose a new password to finish recovering your account.",
@@ -99,6 +110,20 @@ export const translations = {
       "The password reset link is invalid or has already been used.",
     "resetPassword.passwordMismatch": "The passwords do not match.",
     "resetPassword.backToLogin": "Back to login",
+
+    "recoverNickname.title": "Recover nickname",
+    "recoverNickname.description":
+      "Use the recovery link to choose a new nickname for your account.",
+    "recoverNickname.newNickname": "New nickname",
+    "recoverNickname.submit": "Update my nickname",
+    "recoverNickname.submitting": "Updating...",
+    "recoverNickname.success": "Nickname updated successfully.",
+    "recoverNickname.failed": "Unable to update your nickname right now.",
+    "recoverNickname.invalidToken":
+      "The nickname recovery link is invalid or has already expired.",
+    "recoverNickname.nicknameRequired": "Enter a new nickname to continue.",
+    "recoverNickname.nicknameLabel": "Updated nickname",
+    "recoverNickname.backToLogin": "Back to login",
 
     "register.userNotIdentified": "Unable to identify the created user.",
     "register.successRedirect":
@@ -273,7 +298,7 @@ export const translations = {
     "landing.subject.biology": "Biología molecular y Genética",
     "landing.title": "UBA Trainer",
     "landing.subtitle":
-      "Una plataforma para entrenarte para tus exámenes de la UBA.",
+      "Una plataforma para entrenarte para tus exámenes de la Universidad de Buenos Aires.",
     "landing.planTitle": "Paquete de 150 preguntas",
     "landing.planPrice": "Precio: US$5",
     "landing.subjectsTitle": "Materias disponibles en la aplicación",
@@ -291,6 +316,7 @@ export const translations = {
     "login.signingIn": "Ingresando...",
     "login.signIn": "Entrar",
     "login.forgotPassword": "Olvide mi contrasena",
+    "login.forgotNickname": "Olvide mi nickname",
     "login.createAccount": "Crear cuenta",
     "password.requirements":
       "La contrasena debe tener al menos 8 caracteres e incluir una letra mayuscula, una minuscula, un numero y un caracter especial.",
@@ -307,6 +333,18 @@ export const translations = {
       "No fue posible iniciar la recuperacion de contrasena en este momento.",
     "forgotPassword.backToLogin": "Volver al login",
 
+    "forgotNickname.title": "Olvidaste tu nickname?",
+    "forgotNickname.description":
+      "Ingresa el email vinculado a tu cuenta y te enviaremos un enlace para recuperar tu nickname.",
+    "forgotNickname.email": "Email",
+    "forgotNickname.submit": "Enviar enlace de recuperacion",
+    "forgotNickname.submitting": "Enviando...",
+    "forgotNickname.success":
+      "Si el email existe, ya se generaron las instrucciones para recuperar el nickname.",
+    "forgotNickname.failed":
+      "No fue posible iniciar la recuperacion del nickname en este momento.",
+    "forgotNickname.backToLogin": "Volver al login",
+
     "resetPassword.title": "Restablecer contrasena",
     "resetPassword.description":
       "Elige una nueva contrasena para terminar de recuperar tu cuenta.",
@@ -321,6 +359,22 @@ export const translations = {
       "El enlace para restablecer la contrasena es invalido o ya fue usado.",
     "resetPassword.passwordMismatch": "Las contrasenas no coinciden.",
     "resetPassword.backToLogin": "Volver al login",
+
+    "recoverNickname.title": "Recuperar nickname",
+    "recoverNickname.description":
+      "Usa el enlace de recuperacion para elegir un nuevo nickname para tu cuenta.",
+    "recoverNickname.newNickname": "Nuevo nickname",
+    "recoverNickname.submit": "Actualizar mi nickname",
+    "recoverNickname.submitting": "Actualizando...",
+    "recoverNickname.success": "Nickname actualizado con exito.",
+    "recoverNickname.failed":
+      "No fue posible actualizar tu nickname en este momento.",
+    "recoverNickname.invalidToken":
+      "El enlace de recuperacion de nickname es invalido o ya vencio.",
+    "recoverNickname.nicknameRequired":
+      "Ingresa un nuevo nickname para continuar.",
+    "recoverNickname.nicknameLabel": "Nickname actualizado",
+    "recoverNickname.backToLogin": "Volver al login",
 
     "register.userNotIdentified":
       "No fue posible identificar al usuario creado.",
@@ -520,6 +574,7 @@ export const translations = {
     "login.signingIn": "Entrando...",
     "login.signIn": "Entrar",
     "login.forgotPassword": "Esqueci minha senha",
+    "login.forgotNickname": "Esqueci meu nickname",
     "login.createAccount": "Criar conta",
     "password.requirements":
       "A senha deve ter pelo menos 8 caracteres e incluir uma letra maiúscula, uma minúscula, um número e um caractere especial.",
@@ -536,6 +591,18 @@ export const translations = {
       "Não foi possível iniciar a recuperação de senha no momento.",
     "forgotPassword.backToLogin": "Voltar para o login",
 
+    "forgotNickname.title": "Esqueceu seu nickname?",
+    "forgotNickname.description":
+      "Informe o email vinculado a sua conta e enviaremos um link para recuperar seu nickname.",
+    "forgotNickname.email": "Email",
+    "forgotNickname.submit": "Enviar link de recuperacao",
+    "forgotNickname.submitting": "Enviando...",
+    "forgotNickname.success":
+      "Se o email existir, as instrucoes de recuperacao de nickname foram geradas.",
+    "forgotNickname.failed":
+      "Nao foi possivel iniciar a recuperacao de nickname no momento.",
+    "forgotNickname.backToLogin": "Voltar para o login",
+
     "resetPassword.title": "Redefinir senha",
     "resetPassword.description":
       "Escolha uma nova senha para concluir a recuperação da sua conta.",
@@ -550,6 +617,22 @@ export const translations = {
       "O link de redefinição de senha é inválido ou já foi usado.",
     "resetPassword.passwordMismatch": "As senhas não coincidem.",
     "resetPassword.backToLogin": "Voltar para o login",
+
+    "recoverNickname.title": "Recuperar nickname",
+    "recoverNickname.description":
+      "Use o link de recuperacao para escolher um novo nickname para sua conta.",
+    "recoverNickname.newNickname": "Novo nickname",
+    "recoverNickname.submit": "Atualizar meu nickname",
+    "recoverNickname.submitting": "Atualizando...",
+    "recoverNickname.success": "Nickname atualizado com sucesso.",
+    "recoverNickname.failed":
+      "Nao foi possivel atualizar seu nickname no momento.",
+    "recoverNickname.invalidToken":
+      "O link de recuperacao de nickname e invalido ou ja expirou.",
+    "recoverNickname.nicknameRequired":
+      "Informe um novo nickname para continuar.",
+    "recoverNickname.nicknameLabel": "Nickname atualizado",
+    "recoverNickname.backToLogin": "Voltar para o login",
 
     "register.userNotIdentified":
       "Não foi possível identificar o usuário criado.",

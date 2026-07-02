@@ -35,8 +35,8 @@ describe("Login page", () => {
 
     render(<Login />);
 
-    await userEvent.type(screen.getByLabelText("Nickname"), "pedro");
-    await userEvent.type(screen.getByLabelText("Password"), "secret");
+    await userEvent.type(screen.getByLabelText("Nickname"), " pe dro ");
+    await userEvent.type(screen.getByLabelText("Password"), " se cret ");
     await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
 
     await waitFor(() => {
@@ -135,7 +135,7 @@ describe("Login page", () => {
     });
   });
 
-  test("shows API errors, toggles password visibility and navigates to register", async () => {
+  test("shows API errors, toggles password visibility and navigates to recovery flows and register", async () => {
     const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     useAppContext.mockReturnValue(createMockAppContext());
     post.mockRejectedValue({ response: { data: { detail: "Bad credentials" } } });
@@ -157,6 +157,9 @@ describe("Login page", () => {
 
     await userEvent.click(screen.getByRole("button", { name: "Forgot password?" }));
     expect(mockNavigate).toHaveBeenCalledWith("/forgot-password");
+
+    await userEvent.click(screen.getByRole("button", { name: "Forgot nickname?" }));
+    expect(mockNavigate).toHaveBeenCalledWith("/forgot-nickname");
 
     await userEvent.click(screen.getByRole("button", { name: "Create account" }));
     expect(mockNavigate).toHaveBeenCalledWith("/register");
