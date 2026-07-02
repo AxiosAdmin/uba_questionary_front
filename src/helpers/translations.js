@@ -55,7 +55,7 @@ export const translations = {
     "landing.title": "UBA Trainer",
     "landing.subtitle": "A platform to train for your UBA exams.",
     "landing.planTitle": "150-question package",
-    "landing.planPrice": "Price: US$20",
+    "landing.planPrice": "Price: US$5",
     "landing.subjectsTitle": "Subjects available in the app",
     "landing.createAccount": "Create account and buy package",
     "landing.alreadyHaveAccount": "I already have an account",
@@ -133,7 +133,7 @@ export const translations = {
     "subjectSelection.pendingDescription":
       "Your account is ready. Complete the payment to start using the app.",
     "subjectSelection.planLabel": "UBA 150-question package",
-    "subjectSelection.planPrice": "Price: US$20",
+    "subjectSelection.planPrice": "Price: US$5",
     "subjectSelection.step1Title": "1. Complete payment",
     "subjectSelection.step1Description":
       "Click the button below to be redirected to the payment checkout.",
@@ -275,7 +275,7 @@ export const translations = {
     "landing.subtitle":
       "Una plataforma para entrenarte para tus exámenes de la UBA.",
     "landing.planTitle": "Paquete de 150 preguntas",
-    "landing.planPrice": "Precio: US$20",
+    "landing.planPrice": "Precio: US$5",
     "landing.subjectsTitle": "Materias disponibles en la aplicación",
     "landing.createAccount": "Crear cuenta y comprar paquete",
     "landing.alreadyHaveAccount": "Ya tengo cuenta",
@@ -357,7 +357,7 @@ export const translations = {
     "subjectSelection.pendingDescription":
       "Tu cuenta ya esta lista. Completá el pago para empezar a usar la aplicación.",
     "subjectSelection.planLabel": "Paquete UBA de 150 preguntas",
-    "subjectSelection.planPrice": "Precio: US$20",
+    "subjectSelection.planPrice": "Precio: US$5",
     "subjectSelection.step1Title": "1. Completar pago",
     "subjectSelection.step1Description":
       "Hacé clic en el botón de abajo para ser redirigido al checkout de pago.",
@@ -504,7 +504,7 @@ export const translations = {
     "landing.subtitle":
       "Uma plataforma para treinar para as suas provas da UBA.",
     "landing.planTitle": "Pacote de 150 perguntas",
-    "landing.planPrice": "Preço: US$20",
+    "landing.planPrice": "Preço: US$5",
     "landing.subjectsTitle": "Matérias disponíveis no aplicativo",
     "landing.createAccount": "Criar conta e comprar pacote",
     "landing.alreadyHaveAccount": "Já tenho conta",
@@ -585,7 +585,7 @@ export const translations = {
     "subjectSelection.pendingDescription":
       "Sua conta já esta pronta. Finalize o pagamento para começar a usar a aplicacão.",
     "subjectSelection.planLabel": "Pacote UBA de 150 perguntas",
-    "subjectSelection.planPrice": "Preço: US$20",
+    "subjectSelection.planPrice": "Preço: US$5",
     "subjectSelection.step1Title": "1. Concluir pagamento",
     "subjectSelection.step1Description":
       "Clique no botão abaixo para ser redirecionado ao checkout de pagamento.",

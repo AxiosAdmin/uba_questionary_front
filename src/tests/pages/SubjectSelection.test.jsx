@@ -85,7 +85,7 @@ describe("SubjectSelection page", () => {
 
     render(<SubjectSelection />);
 
-    expect(screen.getByText("Price: US$20")).toBeInTheDocument();
+    expect(screen.getByText("Price: US$5")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Buy package now" }));
 
     expect(screen.getByText("Unable to identify the authenticated user.")).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe("SubjectSelection page", () => {
     expect(
       screen.getByText("Buy a new package to keep generating questions"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Price: US$20")).toBeInTheDocument();
+    expect(screen.getByText("Price: US$5")).toBeInTheDocument();
     expect(screen.queryByText("Choose your subject")).not.toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("button", { name: "Buy another package" }));

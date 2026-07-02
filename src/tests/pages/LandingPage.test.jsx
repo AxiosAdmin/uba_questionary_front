@@ -25,9 +25,9 @@ describe("LandingPage", () => {
     render(<LandingPage />);
 
     expect(screen.getByText("UBA Trainer")).toBeInTheDocument();
-    expect(screen.getByText("A platform to train for your UBA anatomy exams.")).toBeInTheDocument();
+    expect(screen.getByText("A platform to train for your UBA exams.")).toBeInTheDocument();
     expect(screen.getByText("150-question package")).toBeInTheDocument();
-    expect(screen.getByText("Price: US$20")).toBeInTheDocument();
+    expect(screen.getByText("Price: US$5")).toBeInTheDocument();
     expect(screen.getByText("AI-generated multiple-choice questions")).toBeInTheDocument();
     expect(screen.getByText("AI-generated and AI-reviewed essays (Coming soon)")).toBeInTheDocument();
     expect(screen.getByText("Mock exams (Coming soon)")).toBeInTheDocument();
@@ -37,8 +37,7 @@ describe("LandingPage", () => {
     expect(screen.getByText("Subjects available in the app")).toBeInTheDocument();
     expect(screen.getByText("Histology (Coming soon)")).toBeInTheDocument();
     expect(screen.getByText("Embryology (Coming soon)")).toBeInTheDocument();
-    expect(screen.getByText("Molecular biology (Coming soon)")).toBeInTheDocument();
-    expect(screen.getByText("Genetics (Coming soon)")).toBeInTheDocument();
+    expect(screen.getByText("Molecular biology and Genetics")).toBeInTheDocument();
   });
 
   test("navigates to register and login actions", async () => {
